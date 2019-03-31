@@ -1,0 +1,131 @@
+/*
+    Created on : 28 Mar 2019, 19:52:04
+    Author     : Kenny Brink - kebri18@student.sdu.dk
+*/
+
+
+.root {
+    /*Background Colors*/
+    -topbarBackground: rgba(0, 0, 0, 0);
+    -darkestBackground: rgba(0, 0, 0, 1);
+    -darkBackground: rgb(33, 33, 33);
+    -lightBackGround: rgb(48, 48, 48);
+    -lighestBackground: rgb(66, 66, 66);
+
+    /*Font Colors*/
+    -darkestText: rgba(255, 255, 255, 1.0);
+    -darkText: rgba(255, 255, 255, 0.7);
+    -lightText: rgba(255, 255, 255, 0.5);
+    -lighestText: rgba(255, 255, 255, 0.12);
+
+    -fx-background-color: -darkestBackground;
+}
+
+/*Buttons*/
+
+.button {
+    -fx-text-fill: -darkestText;
+    -fx-background-color: -darkBackground;
+    -fx-background-radius: 0px;
+}
+
+.button:hover {
+    -fx-background-color: -lightBackground;
+}
+
+.button-algorithm {
+    -fx-font-size: 18;
+}
+
+.button-exit {
+    -fx-background-color: -darkestBackground;
+}
+
+.button-exit:hover {
+    -fx-background-color: -darkBackground;
+}
+
+.button-cross:hover {
+    -fx-background-color: red;
+}
+
+/*Labels*/
+
+.label {
+    -fx-text-fill: -darkestText;
+}
+
+.label-catagory {
+    -fx-font-size: 24;
+    -fx-font-weight: bold;
+}
+
+/*Top bar*/
+
+.hbox-topBar {
+    -fx-background-color: -darkBackground;
+}
+
+/*Scroll-Pane*/
+
+.scroll-pane
+{
+    -fx-fit-to-height: true;
+    -fx-fit-to-width: true;
+    -fx-hbar-policy: as-needed;
+    -fx-vbar-policy: as-needed;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background: transparent;
+    -fx-padding: 0px;
+}
+
+.scroll-pane .scroll-bar:vertical
+{
+    -fx-background-color: transparent;
+    -fx-background-radius: 0;
+
+}
+
+.scroll-pane .scroll-bar:vertical .track
+{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+    -fx-border-radius: 2em;
+}
+
+.scroll-pane .scroll-bar:horizontal .decrement-button
+{
+    -fx-background-color: transparent;
+    -fx-background-radius: 0em;
+    -fx-padding: 0 0 10 0;
+
+}
+
+.scroll-pane .scroll-bar:vertical .decrement-button
+{
+    -fx-background-color: transparent;
+    -fx-background-radius: 0em;
+    -fx-padding: 0 10 0 0;
+}
+
+.scroll-pane .scroll-bar .increment-arrow,
+.scroll-pane .scroll-bar .decrement-arrow
+{
+    -fx-padding: -2;
+}
+
+.scroll-pane .scroll-bar:vertical .thumb
+{
+    -fx-background-color: derive(black,90%);
+    -fx-background-insets: 2, 0, 0;
+    -fx-background-radius: 2em;
+}
+
+
+
+
+
+
+

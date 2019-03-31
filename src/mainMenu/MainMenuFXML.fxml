@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import org.controlsfx.control.ToggleSwitch?>
+
+<BorderPane fx:id="layout" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainMenu.MainMenuController">
+   <bottom>
+      <Label fx:id="helperText" text="Press the ? at the top right for help!" BorderPane.alignment="CENTER" />
+   </bottom>
+   <top>
+      <HBox prefHeight="32.0" styleClass="hbox-topBar" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="30.0" styleClass="hbox-topBar">
+               <children>
+                  <ToggleSwitch fx:id="colorMode" onMouseClicked="#colorMode" prefHeight="30.0" prefWidth="50.0" selected="true" HBox.hgrow="ALWAYS">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </ToggleSwitch>
+               </children>
+               <padding>
+                  <Insets left="1.0" top="1.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="TOP_RIGHT" prefHeight="30.0" styleClass="hbox-topBar" HBox.hgrow="ALWAYS">
+               <children>
+                  <Button fx:id="helpButton" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="40.0" text="?" />
+                  <Button fx:id="minimizeButton" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#minimizeButton" prefHeight="30.0" prefWidth="40.0" text="🗕" />
+                  <Button fx:id="resizeButton" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="40.0" text="🗖" />
+                  <Button fx:id="closeButton" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#closeButton" prefHeight="30.0" prefWidth="40.0" styleClass="button-cross" text="✕" />
+               </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets right="1.0" top="1.0" />
+               </padding>
+            </HBox>
+         </children>
+      </HBox>
+   </top>
+   <center>
+      <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" BorderPane.alignment="CENTER">
+         <content>
+            <VBox fx:id="menu" alignment="CENTER" spacing="5.0">
+               <children>
+                  <Button fx:id="exit" mnemonicParsing="false" onAction="#closeButton" styleClass="button-exit" text="Exit" />
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </center>
+   <left>
+      <HBox alignment="CENTER_LEFT" prefWidth="5.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS" />
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </HBox>
+   </left>
+   <right>
+      <HBox prefWidth="5.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+   </right>
+</BorderPane>

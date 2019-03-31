@@ -1,0 +1,9 @@
+This program was made as a visual aid to understand algorithms.
+This was not made to give huge inputs and actually use the algorithms for what they are intended.
+Therefore please do be aware that if you give any of the algorithms a huge input the computations might be long as this was made for small test inputs.
+If you are ever in doubt how the algorithm works or how the use the interface, then refer to the question mark that is in the top right corner of every algorithm.
+There you will find explanations for everything.
+
+If you find a problem or anything else worth mentioning you can contact me here: kebri18@student.sdu.dk
+
+This program was developed by Kenny Brink.
