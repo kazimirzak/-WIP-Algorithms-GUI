@@ -20,8 +20,8 @@ public class CustomStage extends Stage{
     public static BooleanProperty isFullscreen = StageInteractor.isFullscreen;
     public static BooleanProperty isDarkmode = new SimpleBooleanProperty(true);
 
-    private String darkmode = getClass().getResource("darkmode.css").toExternalForm();
-    private String lightmode = getClass().getResource("lightmode.css").toExternalForm();
+    public String darkmode = getClass().getResource("darkmode.css").toExternalForm();
+    public String lightmode = getClass().getResource("lightmode.css").toExternalForm();
 
     /**
      * Constructor sets the minimum width and height of this stage to the given inputs.
@@ -80,4 +80,5 @@ public class CustomStage extends Stage{
         stageInteractor.makeFullScreenable(30, 0, 0, 0);
         stageInteractor.makeResizeable(5, 5, 5, 5);
     }
+
 }

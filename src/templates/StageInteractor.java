@@ -292,7 +292,6 @@ public class StageInteractor {
             scene.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
                 boolean isDoubleClick = e.getButton() == MouseButton.PRIMARY && e.getClickCount() >= 2;
                 if(isFullscreenable && allowFullscreen && isDoubleClick && detectFullscreenBounds(e)) {
-                    System.out.println("welp");
                     if(!isFullscreen.getValue()) {
                         isFullscreen.setValue(true);
                     } else {

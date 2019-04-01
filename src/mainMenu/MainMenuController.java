@@ -14,6 +14,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import org.controlsfx.control.ToggleSwitch;
+import templates.CustomAlertBox;
 import templates.CustomStage;
 
 
@@ -23,7 +24,7 @@ import templates.CustomStage;
  */
 public class MainMenuController implements Initializable {
 
-    private final CustomStage window = MainMenu.window;
+    private CustomStage window;
 
     @FXML
     private VBox menu;
@@ -39,6 +40,10 @@ public class MainMenuController implements Initializable {
 
     @FXML
     private BorderPane layout;
+
+    public void setWindow(CustomStage window) {
+        this.window = window;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -83,7 +88,7 @@ public class MainMenuController implements Initializable {
      * @return
      */
 
-    private static Label getLabel(String category) {
+    private Label getLabel(String category) {
         Label label = new Label(category);
         label.getStyleClass().add("label-catagory");
         return label;
@@ -95,14 +100,17 @@ public class MainMenuController implements Initializable {
      * @return
      */
 
-    private static Button getButton(String algorithm) {
+    private Button getButton(String algorithm) {
+        CustomAlertBox alertBox = new CustomAlertBox();
         Button button = new Button(algorithm);
         setOnMousePressed(button);
         button.setPrefWidth(300);
         button.getStyleClass().add("button-algorithm");
         switch(algorithm) {
             default:
-                //do nothing
+                button.setOnAction(e -> {
+                    alertBox.showAlertBox("This is not yet implemented!");
+                });
                 break;
         }
         return button;

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane fx:id="layout" minHeight="175.0" minWidth="400.0" styleClass="borderpane-alertBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="templates.CustomAlertBoxController">
+   <center>
+      <VBox fx:id="menu" alignment="CENTER" spacing="5.0">
+         <children>
+            <HBox alignment="CENTER">
+               <children>
+                  <StackPane>
+                     <children>
+                        <Circle fill="#ffffff00" radius="25.0" stroke="RED" strokeType="INSIDE" strokeWidth="3.0">
+                           <StackPane.margin>
+                              <Insets />
+                           </StackPane.margin>
+                        </Circle>
+                        <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="!">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                           <StackPane.margin>
+                              <Insets bottom="3.0" />
+                           </StackPane.margin>
+                        </Text>
+                     </children>
+                     <padding>
+                        <Insets right="15.0" />
+                     </padding>
+                  </StackPane>
+                  <Label fx:id="text" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="6.0" text="A fatal error has occurred!" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+   <bottom>
+      <HBox alignment="BOTTOM_CENTER" spacing="5.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="exit" mnemonicParsing="false" onAction="#closeButton" styleClass="button-alertBox" text="Close" />
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+         <BorderPane.margin>
+            <Insets bottom="10.0" />
+         </BorderPane.margin>
+      </HBox>
+   </bottom>
+</BorderPane>
