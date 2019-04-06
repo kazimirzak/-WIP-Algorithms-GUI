@@ -20,7 +20,6 @@ import javafx.stage.Stage;
 public class StageInteractor {
 
     private final Stage stage;
-    private final Scene scene;
 
     private boolean isDraggable = false;
     private boolean isDragging = false;
@@ -32,7 +31,7 @@ public class StageInteractor {
 
     private boolean isFullscreenable = false;
     public static BooleanProperty isFullscreen = new SimpleBooleanProperty(false);
-    public static BooleanProperty isHalfScreen = new SimpleBooleanProperty(false);
+    public BooleanProperty isHalfScreen = new SimpleBooleanProperty(false);
     private final boolean allowFullscreen = true;
     private double fullscreenMarginTop = 0;
     private double fullscreenMarginRight = 0;
@@ -74,7 +73,6 @@ public class StageInteractor {
 
     public StageInteractor(Stage stage) {
         this.stage = stage;
-        this.scene = stage.getScene();
         initializeCursorArray();
     }
 
@@ -127,7 +125,7 @@ public class StageInteractor {
 
             //Handles wether the mouse is pressed and saves dragStartOffSetX and Y used when the stage is actually dragged.
 
-            scene.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
+            stage.getScene().addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
                 if(e.getButton() == MouseButton.MIDDLE) {
                     stage.centerOnScreen();
                 }else if(e.getButton() == MouseButton.PRIMARY) {
@@ -144,7 +142,7 @@ public class StageInteractor {
 
             //Handles the dragging of the stage. If screen is fullscreen it is disabled.
 
-            scene.addEventHandler(MouseEvent.MOUSE_DRAGGED, e -> {
+            stage.getScene().addEventHandler(MouseEvent.MOUSE_DRAGGED, e -> {
                 if(e.getButton() == MouseButton.PRIMARY) {
                     boolean isWithinBounds = detectDraggingBounds(e);
                     if(isDraggable && allowDragging && isWithinBounds) {
@@ -167,7 +165,7 @@ public class StageInteractor {
 
             //Checks when dragging stops.
 
-            scene.addEventHandler(MouseEvent.MOUSE_RELEASED, e -> {
+            stage.getScene().addEventHandler(MouseEvent.MOUSE_RELEASED, e -> {
                 if(isDragging) {
                     isDragging = false;
 
@@ -206,9 +204,9 @@ public class StageInteractor {
 
     private boolean detectDraggingBounds(MouseEvent e) {
         return e.getSceneY() <= dragMarginTop
-                || scene.getHeight() - e.getSceneY() <= dragMarginBottom
+                || stage.getScene().getHeight() - e.getSceneY() <= dragMarginBottom
                 || e.getSceneX() <= dragMarginLeft
-                || scene.getWidth() - e.getSceneX() <= dragMarginRight;
+                || stage.getScene().getWidth() - e.getSceneX() <= dragMarginRight;
     }
 
     /**
@@ -289,7 +287,7 @@ public class StageInteractor {
 
             //If topbar is double clicked it goes into fullscreen.
 
-            scene.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
+            stage.getScene().addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
                 boolean isDoubleClick = e.getButton() == MouseButton.PRIMARY && e.getClickCount() >= 2;
                 if(isFullscreenable && allowFullscreen && isDoubleClick && detectFullscreenBounds(e)) {
                     if(!isFullscreen.getValue()) {
@@ -310,9 +308,9 @@ public class StageInteractor {
 
     private boolean detectFullscreenBounds(MouseEvent e) {
         boolean isWithinBounds = e.getSceneY() <= fullscreenMarginTop
-                || scene.getHeight() - e.getSceneY() <= fullscreenMarginBottom
+                || stage.getScene().getHeight() - e.getSceneY() <= fullscreenMarginBottom
                 || e.getSceneX() <= fullscreenMarginLeft
-                || scene.getWidth() - e.getSceneX() <= fullscreenMarginRight;
+                || stage.getScene().getWidth() - e.getSceneX() <= fullscreenMarginRight;
         ResizeDirection localResizeDirection = detectResizeDirection(e);
         return isWithinBounds && (localResizeDirection == null);
     }
@@ -347,20 +345,20 @@ public class StageInteractor {
 
             //Constantly checks if the mouse is within resize regions.
 
-            scene.addEventHandler(MouseEvent.MOUSE_MOVED, e -> {
+            stage.getScene().addEventHandler(MouseEvent.MOUSE_MOVED, e -> {
                 if(isResizeable && allowResizing && !isResizing) {
                     ResizeDirection cursorLocation = detectResizeDirection(e);
                     if(cursorLocation != null) {
-                        scene.setCursor(getCursor(cursorLocation));
-                    } else if (resizeCursors.contains(scene.getCursor())) {
-                        scene.setCursor(Cursor.DEFAULT);
+                        stage.getScene().setCursor(getCursor(cursorLocation));
+                    } else if (resizeCursors.contains(stage.getScene().getCursor())) {
+                        stage.getScene().setCursor(Cursor.DEFAULT);
                     }
                 }
             });
 
             //checks if mouse is clicked twice, if it is then it get the direction of the mouse and puts the border of the window to the max size of the screen.
 
-            scene.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
+            stage.getScene().addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
                 if(isResizeable && allowResizing && !isResizing) {
                     resizeDirection = detectResizeDirection(e);
 
@@ -409,7 +407,7 @@ public class StageInteractor {
 
             // Handles the actual dragging for resizing.
 
-            scene.addEventHandler(MouseEvent.MOUSE_DRAGGED, e -> {
+            stage.getScene().addEventHandler(MouseEvent.MOUSE_DRAGGED, e -> {
                 if(isResizing) {
                     if(resizeDirection == ResizeDirection.NORTH || resizeDirection == ResizeDirection.NORTH_WEST || resizeDirection == ResizeDirection.NORTH_EAST) {
                         double newHeight = ensureStageHeightIsWithinLimits(resizeStartStageHeight + (resizeStartFromScreenY - e.getScreenY()));
@@ -447,7 +445,7 @@ public class StageInteractor {
 
             //Checks when resizing is complete
 
-            scene.addEventHandler(MouseEvent.MOUSE_RELEASED, e -> {
+            stage.getScene().addEventHandler(MouseEvent.MOUSE_RELEASED, e -> {
                 if(isResizing) {
                     isResizing = false;
                     isDraggable = true;
@@ -505,9 +503,9 @@ public class StageInteractor {
 
     private ResizeDirection detectResizeDirection(MouseEvent e) {
         boolean isNorthResize = e.getSceneY() <= resizeMarginTop;
-        boolean isSouthResize = scene.getHeight() - e.getSceneY() <= resizeMarginBottom;
+        boolean isSouthResize = stage.getScene().getHeight() - e.getSceneY() <= resizeMarginBottom;
         boolean isWestResize = e.getSceneX() <= resizeMarginLeft;
-        boolean isEastResize = scene.getWidth() - e.getSceneX() <= resizeMarginRight;
+        boolean isEastResize = stage.getScene().getWidth() - e.getSceneX() <= resizeMarginRight;
         boolean isNorthWestResize = isNorthResize && isWestResize;
         boolean isNorthEastResize = isNorthResize && isEastResize;
         boolean isSouthWestResize = isSouthResize && isWestResize;

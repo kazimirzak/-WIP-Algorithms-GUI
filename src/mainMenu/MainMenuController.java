@@ -1,18 +1,25 @@
 package mainMenu;
 
+import infoWindows.infoWindow;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ResourceBundle;
+import java.util.concurrent.ConcurrentHashMap;
+import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import linearSearch.LinearSearch;
 import org.controlsfx.control.ToggleSwitch;
 import templates.CustomAlertBox;
 import templates.CustomStage;
@@ -47,6 +54,7 @@ public class MainMenuController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
         createMenu();
         setOnMousePressed(exit);
         setSpeedOfScrollPane();
@@ -101,13 +109,19 @@ public class MainMenuController implements Initializable {
      */
 
     private Button getButton(String algorithm) {
-        CustomAlertBox alertBox = new CustomAlertBox();
         Button button = new Button(algorithm);
         setOnMousePressed(button);
         button.setPrefWidth(300);
         button.getStyleClass().add("button-algorithm");
         switch(algorithm) {
+            case("Linear Search"):
+                button.setOnAction(e -> {
+                    LinearSearch linearSearch = new LinearSearch(window);
+                    window.setMyScene(linearSearch.getLinearSearchScene());
+                });
+                break;
             default:
+                CustomAlertBox alertBox = new CustomAlertBox();
                 button.setOnAction(e -> {
                     alertBox.showAlertBox("This is not yet implemented!");
                 });
@@ -120,8 +134,8 @@ public class MainMenuController implements Initializable {
      * Method for close button.
      */
 
-    public void closeButton() {
-        window.close();
+    public void exitButton() {
+        Platform.exit();
     }
 
     /**
@@ -186,5 +200,9 @@ public class MainMenuController implements Initializable {
         } else {
             CustomStage.isDarkmode.setValue(false);
         }
+    }
+
+    public void helpButton() {
+        infoWindow info = new infoWindow("Main Menu");
     }
 }

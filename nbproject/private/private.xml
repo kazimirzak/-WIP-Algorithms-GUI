@@ -3,12 +3,18 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/kazim/Dropbox/Skole%20Stuff/Private%20Stuffs/Algorithms2.0/Algorithms2.0/src/templates/CustomStage.java</file>
-            <file>file:/C:/Users/kazim/Dropbox/Skole%20Stuff/Private%20Stuffs/Algorithms2.0/Algorithms2.0/src/mainMenu/MainMenuController.java</file>
-            <file>file:/C:/Users/kazim/Dropbox/Skole%20Stuff/Private%20Stuffs/Algorithms2.0/Algorithms2.0/src/templates/LightModeColors.css</file>
-            <file>file:/C:/Users/kazim/Dropbox/Skole%20Stuff/Private%20Stuffs/Algorithms2.0/Algorithms2.0/src/templates/DarkModeColors.css</file>
-            <file>file:/C:/Users/kazim/Dropbox/Skole%20Stuff/Private%20Stuffs/Algorithms2.0/Algorithms2.0/src/templates/StageInteractor.java</file>
-            <file>file:/C:/Users/kazim/Dropbox/Skole%20Stuff/Private%20Stuffs/Algorithms2.0/Algorithms2.0/src/mainMenu/MainMenu.java</file>
+            <file>file:/C:/Users/kazim/Dropbox/SkoleStuff/Private%20Stuffs/Algorithms2.0/Algorithms2.0/src/mainMenu/MainMenuController.java</file>
+            <file>file:/C:/Users/kazim/Dropbox/SkoleStuff/Private%20Stuffs/Algorithms2.0/Algorithms2.0/src/templates/darkmode.css</file>
+            <file>file:/C:/Users/kazim/Dropbox/SkoleStuff/Private%20Stuffs/Algorithms2.0/Algorithms2.0/src/data/Searching.txt</file>
+            <file>file:/C:/Users/kazim/Dropbox/SkoleStuff/Private%20Stuffs/Algorithms2.0/Algorithms2.0/src/infoWindows/MainMenuInfoController.java</file>
+            <file>file:/C:/Users/kazim/Dropbox/SkoleStuff/Private%20Stuffs/Algorithms2.0/Algorithms2.0/src/templates/CustomAlertBox.java</file>
+            <file>file:/C:/Users/kazim/Dropbox/SkoleStuff/Private%20Stuffs/Algorithms2.0/Algorithms2.0/src/mainMenu/MainMenu.java</file>
+            <file>file:/C:/Users/kazim/Dropbox/SkoleStuff/Private%20Stuffs/Algorithms2.0/Algorithms2.0/src/linearSearch/LinearSearch.java</file>
+            <file>file:/C:/Users/kazim/Dropbox/SkoleStuff/Private%20Stuffs/Algorithms2.0/Algorithms2.0/src/infoWindows/infoWindow.java</file>
+            <file>file:/C:/Users/kazim/Dropbox/SkoleStuff/Private%20Stuffs/Algorithms2.0/Algorithms2.0/src/linearSearch/LinearSearchFXML.fxml</file>
+            <file>file:/C:/Users/kazim/Dropbox/SkoleStuff/Private%20Stuffs/Algorithms2.0/Algorithms2.0/src/linearSearch/LinearSearchController.java</file>
+            <file>file:/C:/Users/kazim/Dropbox/SkoleStuff/Private%20Stuffs/Algorithms2.0/Algorithms2.0/src/templates/CustomStage.java</file>
+            <file>file:/C:/Users/kazim/Dropbox/SkoleStuff/Private%20Stuffs/Algorithms2.0/Algorithms2.0/src/templates/StageInteractor.java</file>
         </group>
     </open-files>
 </project-private>

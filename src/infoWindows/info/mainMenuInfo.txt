@@ -1,0 +1,14 @@
+This program was made to make it easier to understand what algorithms do when they run.
+Click any algorithm on the main screen and it will take you to a new window where you can try the algorithm out.
+If at any point you are in doubt about how to start the algorithm or what it does
+you can always refer to the "?" -button and it will display info about the algorithm and how to start it.
+
+Please note as this program was made for visualization it is not optimised for huge inputs
+and therefore it might take a long time to calculate before showing the visuals if huge inputs are given.
+What a "huge input" is might vary from computer to computer but if you stay <1000 elements at all times it should not take long.
+
+
+
+This program was created and developed by Kenny Brink.
+
+If you find any bugs or have any other inquiries please post them to my gitHub:

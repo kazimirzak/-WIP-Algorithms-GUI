@@ -11,7 +11,7 @@
 
 <BorderPane fx:id="layout" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainMenu.MainMenuController">
    <bottom>
-      <Label fx:id="helperText" text="Press the ? at the top right for help!" BorderPane.alignment="CENTER" />
+      <Label fx:id="helperText" minHeight="32.0" text="Press the ? at the top right for help!" BorderPane.alignment="CENTER" />
    </bottom>
    <top>
       <HBox prefHeight="32.0" styleClass="hbox-topBar" BorderPane.alignment="CENTER">
@@ -33,10 +33,10 @@
             </HBox>
             <HBox alignment="TOP_RIGHT" prefHeight="30.0" styleClass="hbox-topBar" HBox.hgrow="ALWAYS">
                <children>
-                  <Button fx:id="helpButton" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="40.0" text="?" />
+                  <Button fx:id="helpButton" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#helpButton" prefHeight="30.0" prefWidth="40.0" text="?" />
                   <Button fx:id="minimizeButton" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#minimizeButton" prefHeight="30.0" prefWidth="40.0" text="🗕" />
                   <Button fx:id="resizeButton" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="40.0" text="🗖" />
-                  <Button fx:id="closeButton" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#closeButton" prefHeight="30.0" prefWidth="40.0" styleClass="button-cross" text="✕" />
+                  <Button fx:id="exitButton" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#exitButton" prefHeight="30.0" prefWidth="40.0" styleClass="button-cross" text="✕" />
                </children>
                <HBox.margin>
                   <Insets />
@@ -53,14 +53,14 @@
          <content>
             <VBox fx:id="menu" alignment="CENTER" spacing="5.0">
                <children>
-                  <Button fx:id="exit" mnemonicParsing="false" onAction="#closeButton" styleClass="button-exit" text="Exit" />
+                  <Button fx:id="exit" mnemonicParsing="false" onAction="#exitButton" styleClass="button-exit" text="Exit" />
                </children>
             </VBox>
          </content>
       </ScrollPane>
    </center>
    <left>
-      <HBox alignment="CENTER_LEFT" prefWidth="5.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER_LEFT" prefWidth="32.0" BorderPane.alignment="CENTER">
          <children>
             <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS" />
          </children>
@@ -70,7 +70,7 @@
       </HBox>
    </left>
    <right>
-      <HBox prefWidth="5.0" BorderPane.alignment="CENTER">
+      <HBox prefWidth="32.0" BorderPane.alignment="CENTER">
          <children>
             <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS" />
          </children>

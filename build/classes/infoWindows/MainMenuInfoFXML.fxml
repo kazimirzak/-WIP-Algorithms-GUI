@@ -7,35 +7,19 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import org.controlsfx.control.ToggleSwitch?>
+<?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="layout" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainMenu.MainMenuController">
-   <bottom>
-      <Label fx:id="helperText" minHeight="32.0" text="Press the ? at the top right for help!" BorderPane.alignment="CENTER" />
-   </bottom>
+<BorderPane fx:id="layout" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="infoWindows.MainMenuInfoController">
    <top>
       <HBox prefHeight="32.0" styleClass="hbox-topBar" BorderPane.alignment="CENTER">
          <children>
             <HBox prefHeight="30.0" styleClass="hbox-topBar">
-               <children>
-                  <ToggleSwitch fx:id="colorMode" onMouseClicked="#colorMode" prefHeight="30.0" prefWidth="50.0" selected="true" HBox.hgrow="ALWAYS">
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </ToggleSwitch>
-               </children>
                <padding>
                   <Insets left="1.0" top="1.0" />
                </padding>
             </HBox>
-            <HBox alignment="TOP_RIGHT" prefHeight="30.0" styleClass="hbox-topBar" HBox.hgrow="ALWAYS">
+            <HBox alignment="TOP_RIGHT" prefHeight="32.0" styleClass="hbox-topBar" HBox.hgrow="ALWAYS">
                <children>
-                  <Button fx:id="helpButton" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#helpButton" prefHeight="30.0" prefWidth="40.0" text="?" />
-                  <Button fx:id="minimizeButton" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#minimizeButton" prefHeight="30.0" prefWidth="40.0" text="🗕" />
-                  <Button fx:id="resizeButton" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="40.0" text="🗖" />
                   <Button fx:id="exitButton" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#exitButton" prefHeight="30.0" prefWidth="40.0" styleClass="button-cross" text="✕" />
                </children>
                <HBox.margin>
@@ -50,12 +34,15 @@
    </top>
    <center>
       <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets top="5.0" />
+         </BorderPane.margin>
          <content>
-            <VBox fx:id="menu" alignment="CENTER" spacing="5.0">
+            <VBox fx:id="menu" spacing="5.0">
                <children>
-                  <Button fx:id="exit" mnemonicParsing="false" onAction="#exitButton" styleClass="button-exit" text="Exit" />
-               </children>
-            </VBox>
+                  <Label alignment="BASELINE_LEFT" styleClass="label-catagory" text="Algorithms and Data Structures" />
+                  <Text fx:id="textArea" strokeType="OUTSIDE" strokeWidth="0.0" VBox.vgrow="ALWAYS" />
+               </children></VBox>
          </content>
       </ScrollPane>
    </center>
@@ -76,4 +63,18 @@
          </children>
       </HBox>
    </right>
+   <bottom>
+      <HBox alignment="CENTER_RIGHT" prefHeight="32.0" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+         <children>
+            <HBox alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="50.0">
+               <children>
+                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#closeButton" text="Back" />
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+   </bottom>
 </BorderPane>

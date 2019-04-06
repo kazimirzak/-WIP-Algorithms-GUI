@@ -20,7 +20,7 @@ public class MainMenu extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        window = new CustomStage(320, 340);
+        window = new CustomStage(320, 340, true);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenuFXML.fxml"));
         Parent root = loader.load();
         MainMenuController controller = loader.getController();
