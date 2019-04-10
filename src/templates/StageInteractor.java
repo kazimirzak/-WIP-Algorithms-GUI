@@ -31,7 +31,6 @@ public class StageInteractor {
 
     private boolean isFullscreenable = false;
     public static BooleanProperty isFullscreen = new SimpleBooleanProperty(false);
-    public BooleanProperty isHalfScreen = new SimpleBooleanProperty(false);
     private final boolean allowFullscreen = true;
     private double fullscreenMarginTop = 0;
     private double fullscreenMarginRight = 0;
@@ -41,10 +40,6 @@ public class StageInteractor {
     private double stageHeightBeforeFullscreen = 0;
     private double stageXBeforeFullscreen = 0;
     private double stageYBeforeFullscreen = 0;
-    private double stageWidthBeforeHalfScreen = 0;
-    private double stageHeightBeforeHalfScreen = 0;
-    private double stageXBeforeHalfScreen = 0;
-    private double stageYBeforeHalfScreen = 0;
 
     private boolean isResizeable = false;
     private boolean isResizing = false;
@@ -150,9 +145,6 @@ public class StageInteractor {
                         if(isFullscreen.getValue()) {
                             isFullscreen.setValue(false);
                         }
-                        if(isHalfScreen.getValue()) {
-                            isHalfScreen.setValue(false);
-                        }
                     }
 
                     if(isDragging) {
@@ -172,24 +164,6 @@ public class StageInteractor {
                     // Sets the window to fullscreen if dragged to the top.
                     if(e.getScreenY() <= 1) {
                         isFullscreen.setValue(true);
-                    }
-
-                    // Sets the window to fill half the screen if dragged to the side.
-                    if(e.getScreenX() <= 1) {
-                        isHalfScreen.setValue(true);
-                        stage.setHeight(Screen.getPrimary().getVisualBounds().getHeight());
-                        stage.setWidth(Screen.getPrimary().getVisualBounds().getWidth() / 2);
-                        stage.setX(Screen.getPrimary().getVisualBounds().getMinX());
-                        stage.setY(Screen.getPrimary().getVisualBounds().getMinY());
-                    }
-
-                    // Sets the window to fill half the screen if dragged to the side.
-                    if(e.getScreenX() >= Screen.getPrimary().getVisualBounds().getMaxX() - 1) {
-                        isHalfScreen.setValue(true);
-                        stage.setHeight(Screen.getPrimary().getVisualBounds().getHeight());
-                        stage.setWidth(Screen.getPrimary().getVisualBounds().getWidth() / 2);
-                        stage.setX(stage.getWidth());
-                        stage.setY(Screen.getPrimary().getVisualBounds().getMinY());
                     }
                 }
             });
@@ -266,22 +240,6 @@ public class StageInteractor {
                     stage.setHeight(Screen.getPrimary().getBounds().getHeight());
                     stage.setWidth(Screen.getPrimary().getBounds().getWidth());
                     stage.setMaximized(true);
-                }
-            });
-
-            //Handles actions when halfscreen mode is changed.
-
-            isHalfScreen.addListener((property, oldValue, newValue) -> {
-                if(!newValue) {
-                    stage.setX(stageXBeforeHalfScreen);
-                    stage.setY(stageYBeforeHalfScreen);
-                    stage.setWidth(stageWidthBeforeHalfScreen);
-                    stage.setHeight(stageHeightBeforeHalfScreen);
-                } else {
-                    stageWidthBeforeHalfScreen = stage.getWidth();
-                    stageHeightBeforeHalfScreen = stage.getHeight();
-                    stageXBeforeHalfScreen = stage.getX();
-                    stageYBeforeHalfScreen = stage.getY();
                 }
             });
 

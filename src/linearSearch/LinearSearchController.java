@@ -9,11 +9,11 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import org.controlsfx.control.ToggleSwitch;
 import templates.CustomStage;
 
@@ -32,7 +32,7 @@ public class LinearSearchController implements Initializable {
     private VBox menu;
 
     @FXML
-    private Button resizeButton, runButton, resetButton, backButton;
+    private Button resizeButton, generateButton, resetButton, backButton;
 
     @FXML
     private ScrollPane scrollPane;
@@ -45,6 +45,9 @@ public class LinearSearchController implements Initializable {
 
     @FXML
     private TextField inputField;
+
+    @FXML
+    private Label statusLabel;
 
     /**
      * Initializes the controller class.
@@ -66,7 +69,7 @@ public class LinearSearchController implements Initializable {
     }
 
     private void addEffectToButtons() {
-        setOnMousePressed(runButton);
+        setOnMousePressed(generateButton);
         setOnMousePressed(resetButton);
         setOnMousePressed(backButton);
     }
@@ -83,17 +86,9 @@ public class LinearSearchController implements Initializable {
         window.setMyScene(linearSearch.getLinearSearchScene());
     }
 
-    /**
-     * Method for minimize button.
-     */
-
     public void minimizeButton() {
         window.setIconified(true);
     }
-
-    /**
-     * Method for the resize button makes use of customstage.isfullscreen to change from maximized to restore-down.
-     */
 
     public void resizeButton() {
         resizeButton.setOnAction(e -> {
@@ -111,19 +106,10 @@ public class LinearSearchController implements Initializable {
         });
     }
 
-    /**
-     * Adds a little animation to the given button to make it look pressed down.
-     * @param button
-     */
-
     public static void setOnMousePressed(Button button) {
         button.setOnMousePressed(e -> button.translateYProperty().set(2));
         button.setOnMouseReleased(e -> button.translateYProperty().set(0));
     }
-
-    /**
-     * Handles the speed of the scrollPane.
-     */
 
     public void setSpeedOfScrollPane() {
         menu.setOnScroll(e -> {
@@ -135,15 +121,16 @@ public class LinearSearchController implements Initializable {
         });
     }
 
-    /**
-     * Method for the color mode slider.
-     */
-
     public void colorMode() {
         if(colorMode.isSelected()) {
             CustomStage.isDarkmode.setValue(true);
         } else {
             CustomStage.isDarkmode.setValue(false);
         }
+    }
+
+    public void generateButton() {
+        String input = inputField.getText();
+        LinearSearchThread visualizer = new LinearSearchThread(input, statusLabel, visualBox, inputField, generateButton);
     }
 }

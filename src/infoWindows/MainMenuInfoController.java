@@ -5,12 +5,16 @@
  */
 package infoWindows;
 
+import java.awt.Desktop;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,6 +24,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import org.controlsfx.control.ToggleSwitch;
+import templates.CustomAlertBox;
 import templates.CustomStage;
 
 /**
@@ -107,6 +112,16 @@ public class MainMenuInfoController implements Initializable {
     public static void setOnMousePressed(Button button) {
         button.setOnMousePressed(e -> button.translateYProperty().set(2));
         button.setOnMouseReleased(e -> button.translateYProperty().set(0));
+    }
+
+    public void hyperlink() {
+        try {
+            Desktop.getDesktop().browse(new URI("https://github.com/kazimirzak/Algorithms2.0"));
+        } catch (URISyntaxException | IOException e) {
+            System.out.println(e);
+            CustomAlertBox alert = new CustomAlertBox();
+            alert.showAlertBox("Error opening browser!");
+        }
     }
 
 

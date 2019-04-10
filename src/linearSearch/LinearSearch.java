@@ -28,8 +28,8 @@ public class LinearSearch {
             root = loader.load();
             LinearSearchController controller = loader.getController();
             controller.setWindow(window, this);
-        } catch (IOException ex) {
-            System.out.println(ex);
+        } catch (IOException e) {
+            System.out.println(e);
             CustomAlertBox alertBox = new CustomAlertBox();
             alertBox.showAlertBox("Fatal error occured!");
         }

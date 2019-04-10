@@ -10,12 +10,14 @@
     -darkBackground: rgb(33, 33, 33);
     -lightBackground: rgb(48, 48, 48);
     -lightestBackground: rgb(66, 66, 66);
+    -errorBackground: rgb(255, 148, 148);
 
     /*Font Colors*/
     -darkestText: rgba(255, 255, 255, 1.0);
     -darkText: rgba(255, 255, 255, 0.7);
     -lightText: rgba(255, 255, 255, 0.5);
     -lighestText: rgba(255, 255, 255, 0.12);
+    -errorText: rgb(165, 2, 3);
 
     -fx-background-color: -darkestBackground;
     -fx-text-fill: -darkText;
@@ -53,6 +55,12 @@
 
 .label {
     -fx-text-fill: -darkestText;
+}
+
+.error-message {
+    -fx-background-color: -errorBackground;
+    -fx-text-fill: -errorText;
+    -fx-text-inner-color: -darkText;
 }
 
 .label-catagory {
@@ -151,7 +159,20 @@
 /* HBox for arrays*/
 
 .hbox-visualBox {
-    -fx-background-color: -darkBackground
+    -fx-background-color: -darkBackground;
+}
+
+.rectangle-standard {
+    -fx-fill: rgb(30,144,255);
+
+}
+
+.rectangle-inFocus {
+    -fx-fill: rgb(255,140,0);
+}
+
+.rectangle-done {
+    -fx-fill: rgb(127,255,0);
 }
 
 
@@ -171,3 +192,5 @@
     -fx-fill: -darkestText;
     -fx-font-size: 12;
 }
+
+
