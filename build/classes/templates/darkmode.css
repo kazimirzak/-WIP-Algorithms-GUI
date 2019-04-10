@@ -58,7 +58,6 @@
 }
 
 .error-message {
-    -fx-background-color: -errorBackground;
     -fx-text-fill: -errorText;
     -fx-text-inner-color: -darkText;
 }

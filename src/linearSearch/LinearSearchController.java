@@ -41,7 +41,7 @@ public class LinearSearchController implements Initializable {
     private ToggleSwitch colorMode;
 
     @FXML
-    private HBox visualBox;
+    private VBox visualBox;
 
     @FXML
     private TextField inputField;
