@@ -1,6 +1,9 @@
 package templates;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -19,9 +22,13 @@ public class VisualizeArray {
     private Rectangle[] visualArray;
     private int minValue, maxValue, spread;
     private static final int rectangleWidth = 35;
+    private boolean isAllNegative;
+    private List<Rectangle> inFocus;
+    private Rectangle found;
 
     public VisualizeArray(VBox visualBox) {
         this.visualBox = visualBox;
+        inFocus = new ArrayList<>();
         positiveSide = new HBox(5);
         negativeSide = new HBox(5);
         positiveSide.setAlignment(Pos.BOTTOM_CENTER);
@@ -32,6 +39,7 @@ public class VisualizeArray {
         visualArray = new Rectangle[array.length];
         maxValue = Arrays.stream(array).max().getAsInt();
         minValue = Arrays.stream(array).min().getAsInt();
+        isAllNegative = Arrays.stream(array).allMatch(num -> num < 0);
         getSpread();
         initVisuals(array);
     }
@@ -82,7 +90,10 @@ public class VisualizeArray {
         //Rectangle that is actually shown.
         Rectangle rec = new Rectangle(rectangleWidth, 1);
         double multiplier = (double) Math.abs(number) / (double) spread;
-        rec.heightProperty().bind(visualBox.heightProperty().subtract(30).multiply(multiplier));
+        if(isAllNegative)
+            rec.heightProperty().bind(visualBox.heightProperty().subtract(60).multiply(multiplier));
+        else
+            rec.heightProperty().bind(visualBox.heightProperty().subtract(30).multiply(multiplier));
         rec.getStyleClass().add("rectangle-standard");
         visualArray[index] = rec;
 
@@ -102,9 +113,34 @@ public class VisualizeArray {
     }
 
     public void show() {
-        visualBox.getChildren().clear();
-        visualBox.getChildren().addAll(positiveSide, negativeSide);
+        Platform.runLater(() -> {
+            visualBox.getChildren().clear();
+            visualBox.getChildren().addAll(positiveSide, negativeSide);
+        });
+
     }
 
+    public void setInFocus(int index) {
+        visualArray[index].getStyleClass().add("rectangle-inFocus");
+        inFocus.add(visualArray[index]);
+    }
 
+    public void removeInfocus(int index) {
+        visualArray[index].getStyleClass().remove(visualArray[index].getStyleClass().size() - 1);
+        inFocus.remove(visualArray[index]);
+    }
+
+    public void removeAllInFocus() {
+        inFocus.forEach(rec -> rec.getStyleClass().remove(rec.getStyleClass().size() - 1));
+        inFocus.clear();
+    }
+
+    public void setFound(int index) {
+        visualArray[index].getStyleClass().add("rectangle-done");
+        found = visualArray[index];
+    }
+
+    public void removeFound() {
+        found.getStyleClass().remove(found.getStyleClass().size() - 1);
+    }
 }

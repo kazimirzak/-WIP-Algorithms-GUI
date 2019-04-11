@@ -27,7 +27,7 @@ public class LinearSearch {
         try {
             root = loader.load();
             LinearSearchController controller = loader.getController();
-            controller.setWindow(window, this);
+            controller.setWindow(window, prevScene, this);
         } catch (IOException e) {
             System.out.println(e);
             CustomAlertBox alertBox = new CustomAlertBox();

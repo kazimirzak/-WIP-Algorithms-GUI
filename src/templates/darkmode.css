@@ -155,11 +155,13 @@
     -fx-background-color: -lightestBackground;
 }
 
-/* HBox for arrays*/
+/* HBox for arrays */
 
 .hbox-visualBox {
     -fx-background-color: -darkBackground;
 }
+
+/* Rectangles used to show arrays */
 
 .rectangle-standard {
     -fx-fill: rgb(30,144,255);
@@ -172,6 +174,20 @@
 
 .rectangle-done {
     -fx-fill: rgb(127,255,0);
+}
+
+/* Sliders */
+
+.slider .track {
+    -fx-background-color: -lightestBackground;
+}
+
+.slider .thumb {
+    -fx-background-color: derive(black,90%);
+}
+
+.slider .thumb:pressed {
+    -fx-background-color: derive(black,100%);
 }
 
 

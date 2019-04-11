@@ -7,12 +7,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.controlsfx.control.ToggleSwitch;
 import templates.CustomStage;
@@ -27,12 +26,13 @@ public class LinearSearchController implements Initializable {
     private CustomStage window;
     private Parent prevScene;
     private LinearSearch linearSearch;
+    private LinearSearchAlgorithm visualizer;
 
     @FXML
     private VBox menu;
 
     @FXML
-    private Button resizeButton, generateButton, resetButton, backButton;
+    private Button resizeButton, generateButton, resetButton, backButton, toStart, toEnd, forward, backward, playPause, searchButton;
 
     @FXML
     private ScrollPane scrollPane;
@@ -44,27 +44,31 @@ public class LinearSearchController implements Initializable {
     private VBox visualBox;
 
     @FXML
-    private TextField inputField;
+    private TextField arrayInputField, searchInputField;
 
     @FXML
     private Label statusLabel;
 
+    @FXML
+    private Slider speedSlider;
+
     /**
      * Initializes the controller class.
      */
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         setSpeedOfScrollPane();
         resizeButton();
         visualBox.getStyleClass().add("hbox-visualBox");
-        inputField.alignmentProperty().set(Pos.CENTER);
+        arrayInputField.alignmentProperty().set(Pos.CENTER);
         addEffectToButtons();
 
     }
 
-    public void setWindow(CustomStage window, LinearSearch linearSearch) {
+    public void setWindow(CustomStage window, Parent prevScene, LinearSearch linearSearch) {
         this.window = window;
-        this.prevScene = window.getScene().getRoot();
+        this.prevScene = prevScene;
         this.linearSearch = linearSearch;
     }
 
@@ -72,6 +76,12 @@ public class LinearSearchController implements Initializable {
         setOnMousePressed(generateButton);
         setOnMousePressed(resetButton);
         setOnMousePressed(backButton);
+        setOnMousePressed(toStart);
+        setOnMousePressed(toEnd);
+        setOnMousePressed(forward);
+        setOnMousePressed(backward);
+        setOnMousePressed(playPause);
+        setOnMousePressed(searchButton);
     }
 
     public void exitButton() {
@@ -112,12 +122,12 @@ public class LinearSearchController implements Initializable {
     }
 
     public void setSpeedOfScrollPane() {
-        menu.setOnScroll(e -> {
+        visualBox.setOnScroll(e -> {
             double deltaY = e.getDeltaY() * 10;
             double width = scrollPane.getContent().getBoundsInLocal().getWidth();
             double vValue = scrollPane.getVvalue();
             // Make the amount it scrolls by equal to screen size.
-            scrollPane.setVvalue(vValue + -deltaY/width);
+            scrollPane.setVvalue(vValue + -deltaY / width);
         });
     }
 
@@ -130,7 +140,13 @@ public class LinearSearchController implements Initializable {
     }
 
     public void generateButton() {
-        String input = inputField.getText();
-        LinearSearchThread visualizer = new LinearSearchThread(input, statusLabel, visualBox, inputField, generateButton);
+        String input = arrayInputField.getText();
+        visualizer = new LinearSearchAlgorithm(input, statusLabel, visualBox, arrayInputField, generateButton, searchButton,
+                searchInputField, toStart, toEnd, forward, backward, playPause, speedSlider);
+    }
+
+    public void searchButton() {
+        String input = searchInputField.getText();
+        visualizer.search(input);
     }
 }
