@@ -14,8 +14,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.ResourceBundle;
-import javafx.application.HostServices;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -23,7 +21,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import org.controlsfx.control.ToggleSwitch;
 import templates.CustomAlertBox;
 import templates.CustomStage;
 
@@ -49,19 +46,21 @@ public class MainMenuInfoController implements Initializable {
     private ScrollPane scrollPane;
 
     @FXML
-    private ToggleSwitch colorMode;
-
-    @FXML
     private Text textArea;
 
     /**
      * Initializes the controller class.
      */
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         setOnMousePressed(backButton);
         setText();
     }
+
+    /**
+     * Gets the info for the infoWindow.
+     */
 
     private void setText() {
         textArea.setText(getInfo());
@@ -69,13 +68,16 @@ public class MainMenuInfoController implements Initializable {
         textArea.getStyleClass().add("infoText");
     }
 
+    /**
+     * Gets the info from the mainMenuInfo.txt.
+     * @return Returns a string with the text from the .txt file.
+     */
+
     private String getInfo() {
         String result = "";
         try {
-            List<String> lines = Files.readAllLines(Paths.get("C:\\Users\\kazim\\Dropbox\\SkoleStuff\\Private Stuffs\\Algorithms2.0\\Algorithms2.0\\src\\infoWindows\\info\\mainMenuInfo.txt"));
-            for(String line : lines) {
-                result += line + "\n";
-            }
+            List<String> lines = Files.readAllLines(Paths.get(System.getProperty("user.dir") + "\\src\\infoWindows\\info\\mainMenuInfo.txt"));
+            result = lines.stream().map((line) -> line + "\n").reduce(result, String::concat);
         } catch (IOException e) {
             System.out.println(e);
             result = "Error reading info file!";
@@ -83,21 +85,42 @@ public class MainMenuInfoController implements Initializable {
         return result;
     }
 
+    /**
+     * Sets the window of this controller.
+     * @param window
+     */
+
     public void setWindow(CustomStage window) {
         this.window = window;
     }
+
+    /**
+     * Action for the exitButton.
+     */
 
     public void exitButton() {
         window.close();
     }
 
+    /**
+     * Action for the closeButton.
+     */
+
     public void closeButton() {
         window.close();
     }
 
+    /**
+     * Action for the minimizeButton.
+     */
+
     public void minimizeButton() {
         window.setIconified(true);
     }
+
+    /**
+     * Sets the speed of the scrollPane.
+     */
 
     public void setSpeedOfScrollPane() {
         menu.setOnScroll(e -> {
@@ -109,10 +132,19 @@ public class MainMenuInfoController implements Initializable {
         });
     }
 
+    /**
+     * Adds a clicked effect to the given button.
+     * @param button the button to add the effect to.
+     */
+
     public static void setOnMousePressed(Button button) {
         button.setOnMousePressed(e -> button.translateYProperty().set(2));
         button.setOnMouseReleased(e -> button.translateYProperty().set(0));
     }
+
+    /**
+     * Action for when the hyperlink is clicked.
+     */
 
     public void hyperlink() {
         try {
@@ -123,6 +155,4 @@ public class MainMenuInfoController implements Initializable {
             alert.showAlertBox("Error opening browser!");
         }
     }
-
-
 }

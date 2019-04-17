@@ -1,0 +1,13 @@
+Linear search is a searching algorithm that starts at index 0 of an array and checks whether the given number is equal to the number in that index. It then increments the index by 1 and checks again.
+The algorithm stops once the number is found or the whole array has been searched.
+
+The running times for linear search are:
+Worst-case: O(n)
+Best-case: O(1)
+Average-case: O(n)
+
+Please note that the array does not have to be sorted for this algorithm to work.
+For all numbers mentioned below the following requirements should be met:
+It has to be a whole number and if it negative it should be write as "-x" so negative 10 becomes "-10".
+
+Explanation of GUI:

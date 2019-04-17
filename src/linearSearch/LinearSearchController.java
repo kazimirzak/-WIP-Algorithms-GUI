@@ -1,5 +1,6 @@
 package linearSearch;
 
+import infoWindows.infoWindow;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -29,9 +30,6 @@ public class LinearSearchController implements Initializable {
     private LinearSearchAlgorithm visualizer;
 
     @FXML
-    private VBox menu;
-
-    @FXML
     private Button resizeButton, generateButton, resetButton, backButton, toStart, toEnd, forward, backward, playPause, searchButton;
 
     @FXML
@@ -58,10 +56,10 @@ public class LinearSearchController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        colorMode.setSelected(CustomStage.isDarkmode.getValue());
         setSpeedOfScrollPane();
         resizeButton();
         visualBox.getStyleClass().add("hbox-visualBox");
-        arrayInputField.alignmentProperty().set(Pos.CENTER);
         addEffectToButtons();
 
     }
@@ -200,5 +198,13 @@ public class LinearSearchController implements Initializable {
     public void searchButton() {
         String input = searchInputField.getText();
         visualizer.search(input);
+    }
+
+    /**
+     * Action for the helpButton
+     */
+
+    public void helpButton() {
+        infoWindow info = new infoWindow("Linear Search");
     }
 }

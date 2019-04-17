@@ -203,9 +203,14 @@
 /* layout for the info windows*/
 
 .infoText {
+    -fx-border-color: -darkestBackground;
     -fx-background-color: -darkBackground;
     -fx-fill: -darkestText;
     -fx-font-size: 12;
+}
+
+.infoText-text-field {
+    -fx-background-color: -lightBackground;
 }
 
 

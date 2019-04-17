@@ -156,11 +156,13 @@
     -fx-background-color: -lightestBackground;
 }
 
-/* HBox for arrays*/
+/* HBox for arrays */
 
 .hbox-visualBox {
     -fx-background-color: -darkBackground;
 }
+
+/* Rectangles used to show arrays */
 
 .rectangle-standard {
     -fx-fill: rgb(30,144,255);
@@ -172,7 +174,21 @@
 }
 
 .rectangle-done {
-    -fx-fill: rgb(127,255,0);
+    -fx-fill: rgb(34,139,34);
+}
+
+/* Sliders */
+
+.slider .track {
+    -fx-background-color: -lightestBackground;
+}
+
+.slider .thumb {
+    -fx-background-color: derive(black,90%);
+}
+
+.slider .thumb:pressed {
+    -fx-background-color: derive(black,100%);
 }
 
 
@@ -188,7 +204,14 @@
 /* layout for the info windows*/
 
 .infoText {
+    -fx-border-color: -darkestBackground;
     -fx-background-color: -darkBackground;
     -fx-fill: -darkestText;
     -fx-font-size: 12;
 }
+
+.infoText-text-field {
+    -fx-background-color: -lightBackground;
+}
+
+

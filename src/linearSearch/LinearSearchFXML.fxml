@@ -36,7 +36,7 @@
             </HBox>
             <HBox alignment="TOP_RIGHT" prefHeight="30.0" styleClass="hbox-topBar" HBox.hgrow="ALWAYS">
                <children>
-                  <Button fx:id="helpButton" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="40.0" text="?" />
+                  <Button fx:id="helpButton" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#helpButton" prefHeight="30.0" prefWidth="40.0" text="?" />
                   <Button fx:id="minimizeButton" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#minimizeButton" prefHeight="30.0" prefWidth="40.0" text="🗕" />
                   <Button fx:id="resizeButton" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="40.0" text="🗖" />
                   <Button fx:id="exitButton" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#exitButton" prefHeight="30.0" prefWidth="40.0" styleClass="button-cross" text="✕" />
@@ -73,7 +73,7 @@
                   <HBox alignment="CENTER_LEFT" spacing="5.0">
                      <children>
                         <TextField fx:id="searchInputField" alignment="CENTER" disable="true" promptText="Input for searching" />
-                        <Button fx:id="searchButton" defaultButton="true" disable="true" mnemonicParsing="false" onAction="#searchButton" text="Search" />
+                        <Button fx:id="searchButton" disable="true" mnemonicParsing="false" onAction="#searchButton" text="Search" />
                      </children></HBox>
                   <HBox HBox.hgrow="ALWAYS" />
                   <HBox>
@@ -104,14 +104,14 @@
             </HBox>
             <VBox alignment="CENTER">
                <children>
-                  <TextField fx:id="arrayInputField" promptText="Input for array" />
+                  <TextField fx:id="arrayInputField" alignment="CENTER" promptText="Input for array" />
                </children>
             </VBox>
             <HBox alignment="CENTER">
                <children>
                   <HBox alignment="CENTER_LEFT" spacing="2.0">
                      <children>
-                        <Button fx:id="generateButton" defaultButton="true" mnemonicParsing="false" onAction="#generateButton" text="Generate" />
+                        <Button fx:id="generateButton" mnemonicParsing="false" onAction="#generateButton" text="Generate" />
                         <Button fx:id="resetButton" mnemonicParsing="false" onAction="#resetButton" text="Reset" />
                      </children>
                   </HBox>
