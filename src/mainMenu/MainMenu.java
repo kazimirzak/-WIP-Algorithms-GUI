@@ -35,9 +35,10 @@ public class MainMenu extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        for(int i = 100; i >= -100; i--) {
+        for(int i = 1; i <= 39; i++) {
             System.out.print(i + " ");
         }
+        System.out.println();
         launch(args);
     }
 

@@ -15,6 +15,7 @@ import templates.EventQueue;
 import templates.VisualizeArray;
 
 /**
+ * Creates and handles all action in the LinearSearch scene.
  * @author Kenny Brink - kebri18@student.sdu.dk
  */
 public class LinearSearchAlgorithm {
@@ -29,6 +30,7 @@ public class LinearSearchAlgorithm {
     private int[] array;
     private int numberToSearch;
     private static boolean encounteredError = false;
+    private boolean found;
 
     public LinearSearchAlgorithm(String input, Label statusLabel, VBox visualBox, TextField inputField, Button generateButton,
             Button searchButton, TextField searchInputField, Button toStart, Button toEnd, Button forward, Button backward, Button playPause, Slider speedSlider) {
@@ -44,12 +46,19 @@ public class LinearSearchAlgorithm {
         this.backward = backward;
         this.playPause = playPause;
         this.speedSlider = speedSlider;
+        //To clear any animation already in the visualbox.
         visualBox.getChildren().clear();
+
+        //Removes the style for showing error if the statuslabel has already shown an error.
         if (encounteredError) {
             statusLabel.getStyleClass().remove(statusLabel.getStyleClass().size() - 1);
             encounteredError = false;
         }
+
+        //Checks the user input.
         validateInput(input.trim());
+
+        //If not errors were found in the input it gets ready for a input to search on.
         if (!encounteredError) {
             visualizeArray();
             statusLabel.setText("Ready to search!");
@@ -57,6 +66,11 @@ public class LinearSearchAlgorithm {
             searchInputField.setDisable(false);
         }
     }
+
+    /**
+     * Validates the input given by the user.
+     * @param input the input given by the user.
+     */
 
     private void validateInput(String input) {
         statusLabel.setText("Validating array Input...");
@@ -76,6 +90,13 @@ public class LinearSearchAlgorithm {
         }
     }
 
+    /**
+     * Shows an error message.
+     * @param message the error message to show.
+     * @param nodeToShake The node to create shake animation on.
+     * @param button the button used when calling the method that the error occurred in.
+     */
+
     private void showError(String message, Node nodeToShake, Button button) {
         encounteredError = true;
         statusLabel.setText(message);
@@ -83,6 +104,12 @@ public class LinearSearchAlgorithm {
         Thread t = new Thread(() -> doAnimation(nodeToShake, button));
         t.start();
     }
+
+    /**
+     * Creates the shake animation.
+     * @param node the node to shake.
+     * @param button the button from which the error was created. It get disabled during the animation to stop overriding of animations.
+     */
 
     private void doAnimation(Node node, Button button) {
         button.setDisable(true);
@@ -109,6 +136,10 @@ public class LinearSearchAlgorithm {
         button.setDisable(false);
     }
 
+    /**
+     * Visualizes the array and shows it in the visual box.
+     */
+
     private void visualizeArray() {
         statusLabel.setText("Generating Visuals...");
         initialVisualization = new VisualizeArray(visualBox);
@@ -117,18 +148,25 @@ public class LinearSearchAlgorithm {
         statusLabel.setText("Generating Visuals... Done!");
     }
 
+    /**
+     * Validates the input given by the user to search on, if no error are found it creates a eventQueue that is used to search on.
+     * @param input
+     */
+
     public void search(String input) {
         statusLabel.setText("Validating search input...");
+        //Removes the style from the label if an error was already encountered.
         if (encounteredError) {
             statusLabel.getStyleClass().remove(statusLabel.getStyleClass().size() - 1);
             encounteredError = false;
         }
+        //If input is empty.
         if(input.length() == 0) {
             showError("The search input is empty!", searchInputField, searchButton);
         } else {
             try {
+                //Takes the input and parses it to int. If no errors was found in doing this it will create the event queue and set all animation buttons to active.
                 numberToSearch = Integer.parseInt(input.trim());
-                System.out.println(numberToSearch);
                 statusLabel.setText("Validating search input... Done!");
                 createEventQueue();
                 toStart.setDisable(false);
@@ -138,6 +176,7 @@ public class LinearSearchAlgorithm {
                 playPause.setDisable(false);
                 speedSlider.setDisable(false);
             } catch(NumberFormatException e) {
+                //Displays an error in the statuslabel and shakes the input field.
                 String[] errorMessage = e.toString().split(" ");
                 System.out.println(Arrays.toString(errorMessage));
                 String wrongChar = "";
@@ -149,27 +188,50 @@ public class LinearSearchAlgorithm {
         }
     }
 
+    /**
+     * Creates an eventQueue based on the array that is current in this object and creates a new thread that then plays the animation.
+     */
+
     private void createEventQueue() {
-        visuals = new EventQueue();
-        visuals.addEvent(initialVisualization);
+        visuals = new EventQueue(speedSlider.valueProperty());
         doLinearSearch();
-        buttonSetup(visuals);
         Thread t = new Thread(() -> visuals.play());
+        buttonSetup(visuals, t);
         t.start();
     }
 
-    private void buttonSetup(EventQueue eq) {
+    /**
+     * Sets up the actions for all button and adds listeners for playing/pausing.
+     * @param eq the eventQueue used.
+     * @param t the thread that runs the eventQueue.
+     */
+
+    private void buttonSetup(EventQueue eq, Thread t) {
+        setSliderInteraction(t);
+        statusLabel.setText("Searching for " + numberToSearch + "...");
         eq.isPlaying.addListener((property, oldValue, newValue) -> {
             if (newValue) {
                 Platform.runLater(() -> playPause.setText("⏸"));
+                Platform.runLater(() -> statusLabel.setText("Searching for " + numberToSearch + "..."));
                 playPause.setOnAction(e -> {
                     visuals.pause();
                 });
             } else {
-                playPause.setText("▶");
+                Platform.runLater(() -> playPause.setText("▶"));
+                //Checks if the eventQueue is done and if the number was found and sets the statuslabel appropriately.
+               if(eq.isDone()) {
+                    if(found) {
+                        Platform.runLater(() -> statusLabel.setText("Found the number " + numberToSearch + " in " + eq.getTotalSteps() + " steps"));
+                    } else {
+                        Platform.runLater(() -> statusLabel.setText("Did not find the number " + numberToSearch + ". Used " + eq.getTotalSteps() + " steps"));
+                    }
+                } else {
+                    statusLabel.setText(statusLabel.getText() + " Paused!");
+                }
                 playPause.setOnAction(e -> {
-                    Thread t = new Thread(() -> visuals.play());
-                    t.start();
+                    Thread t1 = new Thread(() -> visuals.play());
+                    setSliderInteraction(t1);
+                    t1.start();
                 });
             }
         });
@@ -179,8 +241,23 @@ public class LinearSearchAlgorithm {
         toEnd.setOnAction(e -> eq.toEnd());
     }
 
+    /**
+     * Adds a listener to the speedSliders value to interrupt the given Thread when it is changed.
+     * @param t the thread that is currently running the eventQueue.
+     */
+
+    private void setSliderInteraction(Thread t) {
+        speedSlider.valueProperty().addListener((property, oldValue, newValue) -> {
+            t.interrupt();
+        });
+    }
+
+    /**
+     * Does linearSearch on this array and creates visuals during this.
+     */
+
     private void doLinearSearch() {
-        boolean found = false;
+        found = false;
         for(int i = 0; i < array.length && !found; i++) {
             VisualizeArray vis = new VisualizeArray(visualBox);
             vis.initArray(array);

@@ -7,6 +7,7 @@ import templates.CustomAlertBox;
 import templates.CustomStage;
 
 /**
+ * Creates an object from which a linearSearch scene can be retrieved.
  * @author Kenny Brink - kebri18@student.sdu.dk
  */
 
@@ -16,10 +17,20 @@ public class LinearSearch {
 
     private final Parent prevScene;
 
+    /**
+     * Constructor.
+     * @param window the window from which the scene should be shown.
+     */
+
     public LinearSearch(CustomStage window) {
         this.window = window;
         this.prevScene = window.getScene().getRoot();
     }
+
+    /**
+     * Returns a new linearSearch scene.
+     * @return
+     */
 
     public Parent getLinearSearchScene() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("LinearSearchFXML.fxml"));

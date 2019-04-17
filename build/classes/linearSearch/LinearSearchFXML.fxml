@@ -73,12 +73,12 @@
                   <HBox alignment="CENTER_LEFT" spacing="5.0">
                      <children>
                         <TextField fx:id="searchInputField" alignment="CENTER" disable="true" promptText="Input for searching" />
-                        <Button fx:id="searchButton" disable="true" mnemonicParsing="false" onAction="#searchButton" text="Search" />
+                        <Button fx:id="searchButton" defaultButton="true" disable="true" mnemonicParsing="false" onAction="#searchButton" text="Search" />
                      </children></HBox>
                   <HBox HBox.hgrow="ALWAYS" />
                   <HBox>
                      <children>
-                        <Slider fx:id="speedSlider" disable="true" majorTickUnit="10.0" minorTickCount="1" value="50.0">
+                        <Slider fx:id="speedSlider" blockIncrement="0.1" disable="true" majorTickUnit="1.0" max="8.0" min="1.0" minorTickCount="10" value="4.5">
                            <padding>
                               <Insets right="5.0" top="6.0" />
                            </padding>
@@ -111,7 +111,7 @@
                <children>
                   <HBox alignment="CENTER_LEFT" spacing="2.0">
                      <children>
-                        <Button fx:id="generateButton" mnemonicParsing="false" onAction="#generateButton" text="Generate" />
+                        <Button fx:id="generateButton" defaultButton="true" mnemonicParsing="false" onAction="#generateButton" text="Generate" />
                         <Button fx:id="resetButton" mnemonicParsing="false" onAction="#resetButton" text="Reset" />
                      </children>
                   </HBox>

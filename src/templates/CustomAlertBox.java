@@ -4,15 +4,12 @@ import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 /**
+ * Creates an alertBox to show and error with.
  * @author Kenny Brink - kebri18@student.sdu.dk
  */
 
@@ -24,10 +21,19 @@ public class CustomAlertBox {
 
     private Parent root;
 
+    /**
+     * Constructor. Creates and undecorated window with modality = application modal.
+     */
+
     public CustomAlertBox() {
         window = new Stage(StageStyle.UNDECORATED);
         window.initModality(Modality.APPLICATION_MODAL);
     }
+
+    /**
+     * Shows the alertBox with the given error message.
+     * @param message the message to show.
+     */
 
     public void showAlertBox(String message) {
         root = null;
@@ -38,7 +44,7 @@ public class CustomAlertBox {
             controller.setWindow(window);
             controller.initText(message);
         } catch (IOException ex) {
-            // Doesnt make a difference what i do here it crashes no matter.
+            // Doesnt make a difference what I do here it crashes no matter.
         }
         Scene scene = new Scene(root);
         if(CustomStage.isDarkmode.getValue())

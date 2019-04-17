@@ -66,11 +66,22 @@ public class LinearSearchController implements Initializable {
 
     }
 
+    /**
+     * Sets the window, prevScene and the linearSearch used in this controller.
+     * @param window
+     * @param prevScene
+     * @param linearSearch
+     */
+
     public void setWindow(CustomStage window, Parent prevScene, LinearSearch linearSearch) {
         this.window = window;
         this.prevScene = prevScene;
         this.linearSearch = linearSearch;
     }
+
+    /**
+     * Adds the clicked effect to all buttons mentioned.
+     */
 
     private void addEffectToButtons() {
         setOnMousePressed(generateButton);
@@ -84,21 +95,41 @@ public class LinearSearchController implements Initializable {
         setOnMousePressed(searchButton);
     }
 
+    /**
+     * Action for exitButton.
+     */
+
     public void exitButton() {
         Platform.exit();
     }
+
+    /**
+     * Action for backButton.
+     */
 
     public void backButton() {
         window.setMyScene(prevScene);
     }
 
+    /**
+     * Action for resetButton.
+     */
+
     public void resetButton() {
         window.setMyScene(linearSearch.getLinearSearchScene());
     }
 
+    /**
+     * Action for minimizeButton.
+     */
+
     public void minimizeButton() {
         window.setIconified(true);
     }
+
+    /**
+     * Creates all actions for the maximize/restore down button.
+     */
 
     public void resizeButton() {
         resizeButton.setOnAction(e -> {
@@ -116,10 +147,19 @@ public class LinearSearchController implements Initializable {
         });
     }
 
+    /**
+     * Adds the pressed effect to the given button.
+     * @param button the button to add the effect to.
+     */
+
     public static void setOnMousePressed(Button button) {
         button.setOnMousePressed(e -> button.translateYProperty().set(2));
         button.setOnMouseReleased(e -> button.translateYProperty().set(0));
     }
+
+    /**
+     * Sets the speed of the vertical scrollPane.
+     */
 
     public void setSpeedOfScrollPane() {
         visualBox.setOnScroll(e -> {
@@ -131,6 +171,10 @@ public class LinearSearchController implements Initializable {
         });
     }
 
+    /**
+     * Action for the colorMode selector.
+     */
+
     public void colorMode() {
         if(colorMode.isSelected()) {
             CustomStage.isDarkmode.setValue(true);
@@ -139,11 +183,19 @@ public class LinearSearchController implements Initializable {
         }
     }
 
+    /**
+     * Actions for the generateButton.
+     */
+
     public void generateButton() {
         String input = arrayInputField.getText();
         visualizer = new LinearSearchAlgorithm(input, statusLabel, visualBox, arrayInputField, generateButton, searchButton,
                 searchInputField, toStart, toEnd, forward, backward, playPause, speedSlider);
     }
+
+    /**
+     * Actions for the searchButton.
+     */
 
     public void searchButton() {
         String input = searchInputField.getText();
