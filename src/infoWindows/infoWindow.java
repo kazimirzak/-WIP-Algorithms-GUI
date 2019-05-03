@@ -58,6 +58,9 @@ public class infoWindow {
             case ("Bubble Sort"):
                 window.setMyScene(getBubbleSortInfo());
                 break;
+            case ("Selection Sort"):
+                window.setMyScene(getSelectionSortInfo());
+                break;
             default:
                 errorEncountered = true;
                 CustomAlertBox alertbox = new CustomAlertBox();
@@ -172,6 +175,22 @@ public class infoWindow {
         try {
             root = loader.load();
             BubbleSortInfoController controller = loader.getController();
+            controller.setWindow(window);
+        } catch (IOException e) {
+            System.out.println(e);
+            errorEncountered = true;
+            CustomAlertBox alertbox = new CustomAlertBox();
+            alertbox.showAlertBox("Error retrieving info!");
+        }
+        return root;
+    }
+
+    private Parent getSelectionSortInfo() {
+        Parent root = null;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("SelectionSortInfoFXML.fxml"));
+        try {
+            root = loader.load();
+            SelectionSortInfoController controller = loader.getController();
             controller.setWindow(window);
         } catch (IOException e) {
             System.out.println(e);

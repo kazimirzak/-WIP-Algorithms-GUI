@@ -21,6 +21,7 @@ import javafx.scene.layout.VBox;
 import linearSearch.LinearSearch;
 import org.controlsfx.control.ToggleSwitch;
 import quickSort.QuickSort;
+import selectionSort.SelectionSort;
 import templates.CustomAlertBox;
 import templates.CustomStage;
 
@@ -142,6 +143,12 @@ public class MainMenuController implements Initializable {
                 button.setOnAction(e -> {
                     BubbleSort bubbleSort = new BubbleSort(window);
                     window.setMyScene(bubbleSort.getScene());
+                });
+                break;
+            case("Selection Sort"):
+                button.setOnAction(e -> {
+                    SelectionSort selectionSort = new SelectionSort(window);
+                    window.setMyScene(selectionSort.getScene());
                 });
                 break;
             default:
