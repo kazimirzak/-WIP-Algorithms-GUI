@@ -1,5 +1,4 @@
-Linear search is a searching algorithm that starts at index 0 of an array and checks whether the given number is equal to the number in that index. It then increments the index by 1 and checks again.
-The algorithm stops once the number is found or the whole array has been searched.
+Linear search sequentially checks each element of the list until it finds an element that matches the target value. If the algorithm reaches the end of the list, the search terminates unsuccessfully.
 
 The running times for linear search are:
 Worst-case: O(n)

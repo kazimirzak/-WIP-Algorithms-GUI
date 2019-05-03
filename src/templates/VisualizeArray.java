@@ -24,8 +24,8 @@ public class VisualizeArray {
     private int minValue, maxValue, spread;
     private static final int rectangleWidth = 35;
     private boolean isAllNegative;
-    private List<Rectangle> inFocus;
-    private Rectangle found;
+    private List<Rectangle> inFocus, disabled;
+    private Rectangle found, pivot;
 
     /**
      * Constructor.
@@ -35,6 +35,7 @@ public class VisualizeArray {
     public VisualizeArray(VBox visualBox) {
         this.visualBox = visualBox;
         inFocus = new ArrayList<>();
+        disabled = new ArrayList<>();
         positiveSide = new HBox(5);
         negativeSide = new HBox(5);
         positiveSide.setAlignment(Pos.BOTTOM_CENTER);
@@ -193,7 +194,7 @@ public class VisualizeArray {
      * @param index
      */
 
-    public void setFound(int index) {
+    public void setDone(int index) {
         visualArray[index].getStyleClass().add("rectangle-done");
         found = visualArray[index];
     }
@@ -204,5 +205,34 @@ public class VisualizeArray {
 
     public void removeFound() {
         found.getStyleClass().remove(found.getStyleClass().size() - 1);
+    }
+
+    public void setPivot(int index) {
+        visualArray[index].getStyleClass().add("rectangle-pivot");
+        pivot = visualArray[index];
+    }
+
+    public void removePivot() {
+        pivot.getStyleClass().remove(pivot.getStyleClass().size() - 1);
+    }
+
+    public void setDisabled(int left, int right) {
+        if(left > 0) {
+            for(int i = 0; i < left; i++) {
+                visualArray[i].getStyleClass().add("rectangle-disabled");
+                disabled.add(visualArray[i]);
+            }
+        }
+        if(right < visualArray.length - 1) {
+            for(int i = right + 1; i < visualArray.length; i++) {
+                visualArray[i].getStyleClass().add("rectangle-disabled");
+                disabled.add(visualArray[i]);
+            }
+        }
+    }
+
+    public void removeAllDisabled() {
+        disabled.forEach(rec -> rec.getStyleClass().remove(rec.getStyleClass().size() - 1));
+        disabled.clear();
     }
 }

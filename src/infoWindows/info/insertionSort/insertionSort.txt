@@ -1,0 +1,11 @@
+Insertion sort iterates, consuming one input element each repetition, and growing a sorted output list. At each iteration, insertion sort removes one element from the input data, finds the location it belongs within the sorted list, and inserts it there. It repeats until no input elements remain.
+
+The running times for insertion sort are:
+Worst-case: O(n²)
+Best-case: O(n)
+Average-case: O(n²)
+
+For all numbers mentioned below the following requirements should be met:
+It has to be a whole number and if it negative it should be write as "-x" so negative 10 becomes "-10".
+
+Explanation of GUI:

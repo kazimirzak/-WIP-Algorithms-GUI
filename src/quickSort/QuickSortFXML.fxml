@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.ToggleSwitch?>
+
+<BorderPane fx:id="layout" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="quickSort.QuickSortController">
+   <bottom>
+      <Label fx:id="helperText" minHeight="32.0" text="Press the ? at the top right for help!" BorderPane.alignment="CENTER" />
+   </bottom>
+   <top>
+      <HBox prefHeight="32.0" styleClass="hbox-topBar" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="30.0" styleClass="hbox-topBar">
+               <children>
+                  <ToggleSwitch fx:id="colorMode" onMouseClicked="#colorMode" prefHeight="30.0" prefWidth="50.0" selected="true" HBox.hgrow="ALWAYS">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </ToggleSwitch>
+               </children>
+               <padding>
+                  <Insets left="1.0" top="1.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="TOP_RIGHT" prefHeight="30.0" styleClass="hbox-topBar" HBox.hgrow="ALWAYS">
+               <children>
+                  <Button fx:id="helpButton" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#helpButton" prefHeight="30.0" prefWidth="40.0" text="?" />
+                  <Button fx:id="minimizeButton" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#minimizeButton" prefHeight="30.0" prefWidth="40.0" text="🗕" />
+                  <Button fx:id="resizeButton" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="40.0" text="🗖" />
+                  <Button fx:id="exitButton" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#exitButton" prefHeight="30.0" prefWidth="40.0" styleClass="button-cross" text="✕" />
+               </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets right="1.0" top="1.0" />
+               </padding>
+            </HBox>
+         </children>
+      </HBox>
+   </top>
+   <center>
+      <VBox fx:id="menu" alignment="CENTER" spacing="5.0">
+         <children>
+            <HBox alignment="CENTER_LEFT">
+               <children>
+                  <Label text="Quick Sort">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS">
+               <content>
+                  <VBox fx:id="visualBox" alignment="CENTER" />
+               </content>
+            </ScrollPane>
+            <HBox alignment="BOTTOM_RIGHT">
+               <children>
+                  <HBox alignment="CENTER_LEFT" spacing="5.0" />
+                  <HBox HBox.hgrow="ALWAYS" />
+                  <HBox>
+                     <children>
+                        <Slider fx:id="speedSlider" blockIncrement="0.1" disable="true" majorTickUnit="1.0" max="8.0" min="1.0" minorTickCount="10" value="4.5">
+                           <padding>
+                              <Insets right="5.0" top="6.0" />
+                           </padding>
+                        </Slider>
+                        <Button fx:id="toStart" disable="true" mnemonicParsing="false" text="⟲" />
+                        <Button fx:id="backward" disable="true" mnemonicParsing="false" text="⏪" />
+                        <Button fx:id="playPause" disable="true" mnemonicParsing="false" prefWidth="28.0" text="▶" />
+                        <Button fx:id="forward" disable="true" mnemonicParsing="false" text="⏩" />
+                        <Button fx:id="toEnd" disable="true" mnemonicParsing="false" text="⟲" />
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" spacing="5.0">
+               <children>
+                  <Label text="Status:">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="statusLabel" text="awaiting input..." />
+               </children>
+            </HBox>
+            <VBox alignment="CENTER">
+               <children>
+                  <TextField fx:id="arrayInputField" alignment="CENTER" promptText="Input for array" />
+               </children>
+            </VBox>
+            <HBox alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER_LEFT" spacing="2.0">
+                     <children>
+                        <Button fx:id="generateButton" mnemonicParsing="false" onAction="#generateButton" text="Generate" />
+                        <Button fx:id="resetButton" mnemonicParsing="false" onAction="#resetButton" text="Reset" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" spacing="5.0" HBox.hgrow="ALWAYS" />
+                  <HBox alignment="CENTER_RIGHT">
+                     <children>
+                        <Button fx:id="backButton" mnemonicParsing="false" onAction="#backButton" text="Back" />
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+   <left>
+      <HBox alignment="CENTER_LEFT" prefWidth="32.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS" />
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </HBox>
+   </left>
+   <right>
+      <HBox prefWidth="32.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+   </right>
+</BorderPane>

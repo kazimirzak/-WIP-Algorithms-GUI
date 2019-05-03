@@ -32,7 +32,7 @@ public class LinearSearch {
      * @return
      */
 
-    public Parent getLinearSearchScene() {
+    public Parent getScene() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("LinearSearchFXML.fxml"));
         Parent root = null;
         try {

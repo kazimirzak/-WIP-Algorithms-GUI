@@ -114,7 +114,7 @@ public class LinearSearchController implements Initializable {
      */
 
     public void resetButton() {
-        window.setMyScene(linearSearch.getLinearSearchScene());
+        window.setMyScene(linearSearch.getScene());
     }
 
     /**

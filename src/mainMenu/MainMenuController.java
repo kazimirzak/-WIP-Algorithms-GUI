@@ -1,6 +1,9 @@
 package mainMenu;
 
+import binarySearch.BinarySearch;
+import bubbleSort.BubbleSort;
 import infoWindows.infoWindow;
+import insertionSort.InsertionSort;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -17,6 +20,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import linearSearch.LinearSearch;
 import org.controlsfx.control.ToggleSwitch;
+import quickSort.QuickSort;
 import templates.CustomAlertBox;
 import templates.CustomStage;
 
@@ -113,7 +117,31 @@ public class MainMenuController implements Initializable {
             case("Linear Search"):
                 button.setOnAction(e -> {
                     LinearSearch linearSearch = new LinearSearch(window);
-                    window.setMyScene(linearSearch.getLinearSearchScene());
+                    window.setMyScene(linearSearch.getScene());
+                });
+                break;
+            case("Binary Search"):
+                button.setOnAction(e -> {
+                    BinarySearch binarySearch = new BinarySearch(window);
+                    window.setMyScene(binarySearch.getScene());
+                });
+                break;
+            case("Insertion Sort"):
+                button.setOnAction(e -> {
+                    InsertionSort insertionSort = new InsertionSort(window);
+                    window.setMyScene(insertionSort.getScene());
+                });
+                break;
+            case("Quick Sort"):
+                button.setOnAction(e -> {
+                    QuickSort quickSort = new QuickSort(window);
+                    window.setMyScene(quickSort.getScene());
+                });
+                break;
+            case("Bubble Sort"):
+                button.setOnAction(e -> {
+                    BubbleSort bubbleSort = new BubbleSort(window);
+                    window.setMyScene(bubbleSort.getScene());
                 });
                 break;
             default:

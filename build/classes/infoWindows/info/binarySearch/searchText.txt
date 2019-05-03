@@ -1,0 +1,2 @@
+
+This button will take the input given in the "Input for searching" field and create animations where the algorithm will search for the given number in the array.

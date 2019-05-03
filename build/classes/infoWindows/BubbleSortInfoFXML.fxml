@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane fx:id="layout" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="infoWindows.BubbleSortInfoController">
+   <top>
+      <HBox prefHeight="32.0" styleClass="hbox-topBar" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="30.0" styleClass="hbox-topBar">
+               <padding>
+                  <Insets left="1.0" top="1.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="TOP_RIGHT" prefHeight="32.0" styleClass="hbox-topBar" HBox.hgrow="ALWAYS">
+               <children>
+                  <Button fx:id="exitButton" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#exitButton" prefHeight="30.0" prefWidth="40.0" styleClass="button-cross" text="✕" />
+               </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets right="1.0" top="1.0" />
+               </padding>
+            </HBox>
+         </children>
+      </HBox>
+   </top>
+   <center>
+      <VBox BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets top="5.0" />
+         </BorderPane.margin>
+         <children>
+            <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true">
+               <content>
+                  <VBox fx:id="menu" mouseTransparent="true" spacing="2.0">
+                     <children>
+                        <Label alignment="BASELINE_LEFT" styleClass="label-catagory" text="Bubble Sort" />
+                        <Text fx:id="textArea" strokeType="OUTSIDE" strokeWidth="0.0" />
+                        <HBox alignment="CENTER_LEFT" VBox.vgrow="NEVER">
+                           <children>
+                              <TextField fx:id="arrayInputField" alignment="CENTER" editable="false" promptText="Input for array" />
+                              <HBox HBox.hgrow="ALWAYS" />
+                           </children>
+                        </HBox>
+                        <Text fx:id="arrayInputFieldText" strokeType="OUTSIDE" strokeWidth="0.0" />
+                        <Button mnemonicParsing="false" styleClass="button-alertBox" text="Generate" />
+                        <Text fx:id="generateText" strokeType="OUTSIDE" strokeWidth="0.0" />
+                        <Button mnemonicParsing="false" styleClass="button-alertBox" text="Reset" />
+                        <Text fx:id="resetText" strokeType="OUTSIDE" strokeWidth="0.0" />
+                        <HBox alignment="CENTER_LEFT" spacing="5.0">
+                           <children>
+                              <Button mnemonicParsing="false" styleClass="button-alertBox" text="▶" />
+                              <Label text="/" />
+                              <Button mnemonicParsing="false" styleClass="button-alertBox" text="⏸" />
+                           </children>
+                        </HBox>
+                        <Text fx:id="playPauseText" strokeType="OUTSIDE" strokeWidth="0.0" />
+                        <Button mnemonicParsing="false" styleClass="button-alertBox" text="⏪" />
+                        <Text fx:id="backwardText" strokeType="OUTSIDE" strokeWidth="0.0" />
+                        <Button mnemonicParsing="false" styleClass="button-alertBox" text="⏩" />
+                        <Text fx:id="forwardText" strokeType="OUTSIDE" strokeWidth="0.0" />
+                        <Button mnemonicParsing="false" styleClass="button-alertBox" text="⟲" />
+                        <Text fx:id="toStartText" strokeType="OUTSIDE" strokeWidth="0.0" />
+                        <Button mnemonicParsing="false" styleClass="button-alertBox" text="⟲" />
+                        <Text fx:id="toEndText" strokeType="OUTSIDE" strokeWidth="0.0" />
+                     </children>
+                  </VBox>
+               </content>
+            </ScrollPane>
+            <HBox alignment="BOTTOM_RIGHT" VBox.vgrow="ALWAYS">
+               <children>
+                  <Button fx:id="backButton" mnemonicParsing="false" onAction="#closeButton" styleClass="button-alertBox" text="Back" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+   <left>
+      <HBox alignment="CENTER_LEFT" prefWidth="32.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS" />
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </HBox>
+   </left>
+   <right>
+      <HBox prefWidth="32.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+   </right>
+   <bottom>
+      <HBox alignment="CENTER_RIGHT" prefHeight="32.0" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+         <children>
+            <HBox alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="50.0" />
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>

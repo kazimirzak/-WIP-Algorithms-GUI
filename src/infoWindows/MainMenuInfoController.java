@@ -64,6 +64,7 @@ public class MainMenuInfoController implements Initializable {
 
     private void setText() {
         textArea.setText(getInfo());
+        textArea.setWrappingWidth(CustomStage.screenSizeWidth * 0.35);
         layout.getStyleClass().add("infoText");
         textArea.getStyleClass().add("infoText");
     }

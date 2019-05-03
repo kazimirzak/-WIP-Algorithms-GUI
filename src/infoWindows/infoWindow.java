@@ -28,8 +28,8 @@ public class infoWindow {
         window.setMyScene(new Scene(new BorderPane()));
         errorEncountered = false;
         setScene(info);
-        window.setWidth(CustomStage.screenSizeWidth * 0.4);
-        window.setHeight(CustomStage.screenSizeHeight * 0.35);
+        window.setWidth(CustomStage.screenSizeWidth * 0.45);
+        window.setHeight(CustomStage.screenSizeHeight * 0.5);
         showWindow();
     }
 
@@ -45,6 +45,18 @@ public class infoWindow {
                 break;
             case ("Linear Search"):
                 window.setMyScene(getLinearSearchInfo());
+                break;
+            case ("Binary Search"):
+                window.setMyScene(getBinarySearchInfo());
+                break;
+            case ("Insertion Sort"):
+                window.setMyScene(getInsertionSortInfo());
+                break;
+            case ("Quick Sort"):
+                window.setMyScene(getQuickSortInfo());
+                break;
+            case ("Bubble Sort"):
+                window.setMyScene(getBubbleSortInfo());
                 break;
             default:
                 errorEncountered = true;
@@ -86,6 +98,80 @@ public class infoWindow {
         try {
             root = loader.load();
             LinearSearchInfoController controller = loader.getController();
+            controller.setWindow(window);
+        } catch (IOException e) {
+            System.out.println(e);
+            errorEncountered = true;
+            CustomAlertBox alertbox = new CustomAlertBox();
+            alertbox.showAlertBox("Error retrieving info!");
+        }
+        return root;
+    }
+
+    /**
+     * Gets the binarySearchInfo window
+     * @return the scene to show.
+     */
+
+    private Parent getBinarySearchInfo() {
+        Parent root = null;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("BinarySearchInfoFXML.fxml"));
+        try {
+            root = loader.load();
+            BinarySearchInfoController controller = loader.getController();
+            controller.setWindow(window);
+        } catch (IOException e) {
+            System.out.println(e);
+            errorEncountered = true;
+            CustomAlertBox alertbox = new CustomAlertBox();
+            alertbox.showAlertBox("Error retrieving info!");
+        }
+        return root;
+    }
+
+    /**
+     * Gets the binarySearchInfo window
+     * @return the scene to show.
+     */
+
+    private Parent getInsertionSortInfo() {
+        Parent root = null;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("InsertionSortInfoFXML.fxml"));
+        try {
+            root = loader.load();
+            InsertionSortInfoController controller = loader.getController();
+            controller.setWindow(window);
+        } catch (IOException e) {
+            System.out.println(e);
+            errorEncountered = true;
+            CustomAlertBox alertbox = new CustomAlertBox();
+            alertbox.showAlertBox("Error retrieving info!");
+        }
+        return root;
+    }
+
+    private Parent getQuickSortInfo() {
+        Parent root = null;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("QuickSortInfoFXML.fxml"));
+        try {
+            root = loader.load();
+            QuickSortInfoController controller = loader.getController();
+            controller.setWindow(window);
+        } catch (IOException e) {
+            System.out.println(e);
+            errorEncountered = true;
+            CustomAlertBox alertbox = new CustomAlertBox();
+            alertbox.showAlertBox("Error retrieving info!");
+        }
+        return root;
+    }
+
+    private Parent getBubbleSortInfo() {
+        Parent root = null;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("BubbleSortInfoFXML.fxml"));
+        try {
+            root = loader.load();
+            BubbleSortInfoController controller = loader.getController();
             controller.setWindow(window);
         } catch (IOException e) {
             System.out.println(e);

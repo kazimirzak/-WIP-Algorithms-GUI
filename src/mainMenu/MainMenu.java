@@ -1,5 +1,6 @@
 package mainMenu;
 
+import java.util.Random;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -35,8 +36,9 @@ public class MainMenu extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        for(int i = 1; i <= 39; i++) {
-            System.out.print(i + " ");
+        Random random = new Random();
+        for(int i = 1; i <= 19; i++) {
+            System.out.print(random.nextInt(50) + " ");
         }
         System.out.println();
         launch(args);

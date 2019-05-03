@@ -1,0 +1,11 @@
+Bubble sort, sometimes referred to as sinking sort, is a simple sorting algorithm that repeatedly steps through the list, compares adjacent pairs and swaps them if they are in the wrong order. The pass through the list is repeated until the list is sorted. The algorithm, which is a comparison sort, is named for the way smaller or larger elements "bubble" to the top of the list.
+
+The running times for insertion sort are:
+Worst-case: O(n²)
+Best-case: O(n)
+Average-case: O(n²)
+
+For all numbers mentioned below the following requirements should be met:
+It has to be a whole number and if it negative it should be write as "-x" so negative 10 becomes "-10".
+
+Explanation of GUI:

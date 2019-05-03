@@ -87,7 +87,7 @@
                         <Button fx:id="backward" disable="true" mnemonicParsing="false" text="⏪" />
                         <Button fx:id="playPause" disable="true" mnemonicParsing="false" prefWidth="28.0" text="▶" />
                         <Button fx:id="forward" disable="true" mnemonicParsing="false" text="⏩" />
-                        <Button fx:id="toEnd" disable="true" mnemonicParsing="false" text="⟳" />
+                        <Button fx:id="toEnd" disable="true" mnemonicParsing="false" text="⟲" />
                      </children>
                   </HBox>
                </children>

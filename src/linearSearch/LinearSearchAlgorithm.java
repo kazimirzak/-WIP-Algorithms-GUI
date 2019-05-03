@@ -28,7 +28,7 @@ public class LinearSearchAlgorithm {
     private VisualizeArray initialVisualization;
     private EventQueue visuals;
     private int[] array;
-    private int numberToSearch;
+    private int numberToSearch, comparisons;
     private static boolean encounteredError = false;
     private boolean found;
 
@@ -46,6 +46,7 @@ public class LinearSearchAlgorithm {
         this.backward = backward;
         this.playPause = playPause;
         this.speedSlider = speedSlider;
+        comparisons = 0;
         //To clear any animation already in the visualbox.
         visualBox.getChildren().clear();
 
@@ -221,9 +222,9 @@ public class LinearSearchAlgorithm {
                 //Checks if the eventQueue is done and if the number was found and sets the statuslabel appropriately.
                if(eq.isDone()) {
                     if(found) {
-                        Platform.runLater(() -> statusLabel.setText("Found the number " + numberToSearch + " in " + eq.getTotalSteps() + " steps"));
+                        Platform.runLater(() -> statusLabel.setText("Found the number " + numberToSearch + ". Number of comparisons: " + comparisons));
                     } else {
-                        Platform.runLater(() -> statusLabel.setText("Did not find the number " + numberToSearch + ". Used " + eq.getTotalSteps() + " steps"));
+                        Platform.runLater(() -> statusLabel.setText("Did not find the number " + numberToSearch + ". Number of comparisons: " + comparisons));
                     }
                 } else {
                     statusLabel.setText(statusLabel.getText() + " Paused!");
@@ -235,10 +236,54 @@ public class LinearSearchAlgorithm {
                 });
             }
         });
-        forward.setOnAction(e -> eq.next());
-        backward.setOnAction(e -> eq.previous());
-        toStart.setOnAction(e -> eq.toStart());
-        toEnd.setOnAction(e -> eq.toEnd());
+        forward.setOnAction(e -> {
+            eq.next();
+            if (eq.isDone()) {
+                if (found) {
+                    Platform.runLater(() -> statusLabel.setText("Found the number " + numberToSearch + ". Number of comparisons: " + comparisons));
+                } else {
+                    Platform.runLater(() -> statusLabel.setText("Did not find the number " + numberToSearch + ". Number of comparisons: " + comparisons));
+                }
+            } else {
+                Platform.runLater(() -> statusLabel.setText("Searching for " + numberToSearch + "... Paused!"));
+            }
+        });
+        backward.setOnAction(e -> {
+            eq.previous();
+            if (eq.isDone()) {
+                if (found) {
+                    Platform.runLater(() -> statusLabel.setText("Found the number " + numberToSearch + ". Number of comparisons: " + comparisons));
+                } else {
+                    Platform.runLater(() -> statusLabel.setText("Did not find the number " + numberToSearch + ". Number of comparisons: " + comparisons));
+                }
+            } else {
+                Platform.runLater(() -> statusLabel.setText("Searching for " + numberToSearch + "... Paused!"));
+            }
+        });
+        toStart.setOnAction(e -> {
+            eq.toStart();
+            if (eq.isDone()) {
+                if (found) {
+                    Platform.runLater(() -> statusLabel.setText("Found the number " + numberToSearch + ". Number of comparisons: " + comparisons));
+                } else {
+                    Platform.runLater(() -> statusLabel.setText("Did not find the number " + numberToSearch + ". Number of comparisons: " + comparisons));
+                }
+            } else {
+                Platform.runLater(() -> statusLabel.setText("Searching for " + numberToSearch + "... Paused!"));
+            }
+        });
+        toEnd.setOnAction(e -> {
+            eq.toEnd();
+            if (eq.isDone()) {
+                if (found) {
+                    Platform.runLater(() -> statusLabel.setText("Found the number " + numberToSearch + ". Number of comparisons: " + comparisons));
+                } else {
+                    Platform.runLater(() -> statusLabel.setText("Did not find the number " + numberToSearch + ". Number of comparisons: " + comparisons));
+                }
+            } else {
+                Platform.runLater(() -> statusLabel.setText("Searching for " + numberToSearch + "... Paused!"));
+            }
+        });
     }
 
     /**
@@ -259,10 +304,11 @@ public class LinearSearchAlgorithm {
     private void doLinearSearch() {
         found = false;
         for(int i = 0; i < array.length && !found; i++) {
+            comparisons++;
             VisualizeArray vis = new VisualizeArray(visualBox);
             vis.initArray(array);
             if(array[i] == numberToSearch) {
-                vis.setFound(i);
+                vis.setDone(i);
                 found = true;
             } else
                 vis.setInFocus(i);

@@ -1,0 +1,2 @@
+
+This is where the number you want to search for goes. Only one whole number is accepted as input.

@@ -1,0 +1,2 @@
+
+When pressed this button will take the input given in the "Input for array" field and visualize the input as an array.
