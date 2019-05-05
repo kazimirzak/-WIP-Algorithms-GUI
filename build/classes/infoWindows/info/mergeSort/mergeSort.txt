@@ -1,0 +1,16 @@
+Conceptually, a merge sort works as follows:
+
+    1. Divide the unsorted list into n sublists, each containing one element (a list of one element is considered sorted).
+    2. Repeatedly merge sublists to produce new sorted sublists until there is only one sublist remaining. This will be the sorted list.
+
+The running times for insertion sort are:
+Worst-case: O(n * log(n))
+Best-case: O(n * log(n))
+Average-case: O(n * log(n))
+
+For all numbers mentioned below the following requirements should be met:
+It has to be a whole number and if it negative it should be write as "-x" so negative 10 becomes "-10".
+
+Explanation of GUI:
+
+In the space where the visualization is shown there will be 3 different arrays. The first one is input which also at the end will be output. The other 2 arrays are the ones that merge sort is currently trying to merge together into the input.

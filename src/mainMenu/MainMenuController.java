@@ -19,6 +19,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import linearSearch.LinearSearch;
+import mergeSort.MergeSort;
 import org.controlsfx.control.ToggleSwitch;
 import quickSort.QuickSort;
 import selectionSort.SelectionSort;
@@ -149,6 +150,12 @@ public class MainMenuController implements Initializable {
                 button.setOnAction(e -> {
                     SelectionSort selectionSort = new SelectionSort(window);
                     window.setMyScene(selectionSort.getScene());
+                });
+                break;
+            case("Merge Sort"):
+                button.setOnAction(e -> {
+                    MergeSort mergeSort = new MergeSort(window);
+                    window.setMyScene(mergeSort.getScene());
                 });
                 break;
             default:

@@ -38,7 +38,10 @@ public class MainMenu extends Application {
     public static void main(String[] args) {
         Random random = new Random();
         for(int i = 1; i <= 19; i++) {
-            System.out.print(random.nextInt(50) + " ");
+            int number = random.nextInt(50);
+            if(random.nextBoolean())
+                number = number  * (-1);
+            System.out.print(number + " ");
         }
         System.out.println();
         launch(args);

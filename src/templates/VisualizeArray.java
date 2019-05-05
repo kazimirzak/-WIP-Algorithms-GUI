@@ -42,18 +42,32 @@ public class VisualizeArray {
         negativeSide.setAlignment(Pos.TOP_CENTER);
     }
 
+
     /**
      * Initializes the array for this VisualizeArray.
      * @param array
      */
 
     public void initArray(int[] array) {
-        visualArray = new Rectangle[array.length];
-        maxValue = Arrays.stream(array).max().getAsInt();
-        minValue = Arrays.stream(array).min().getAsInt();
-        isAllNegative = Arrays.stream(array).allMatch(num -> num <= 0);
-        getSpread();
-        initVisuals(array);
+        if(array.length != 0) {
+            visualArray = new Rectangle[array.length];
+            maxValue = Arrays.stream(array).max().getAsInt();
+            minValue = Arrays.stream(array).min().getAsInt();
+            isAllNegative = Arrays.stream(array).allMatch(num -> num <= 0);
+            getSpread();
+            initVisuals(array);
+        }
+    }
+
+    public void initArray(int[] array, int maxValue) {
+        if(array.length != 0) {
+            visualArray = new Rectangle[array.length];
+            this.maxValue = maxValue;
+            minValue = Arrays.stream(array).min().getAsInt();
+            isAllNegative = Arrays.stream(array).allMatch(num -> num <= 0);
+            getSpread();
+            initVisuals(array);
+        }
     }
 
     /**

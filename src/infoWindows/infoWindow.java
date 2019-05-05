@@ -61,6 +61,9 @@ public class infoWindow {
             case ("Selection Sort"):
                 window.setMyScene(getSelectionSortInfo());
                 break;
+            case ("Merge Sort"):
+                window.setMyScene(getMergeSortInfo());
+                break;
             default:
                 errorEncountered = true;
                 CustomAlertBox alertbox = new CustomAlertBox();
@@ -191,6 +194,22 @@ public class infoWindow {
         try {
             root = loader.load();
             SelectionSortInfoController controller = loader.getController();
+            controller.setWindow(window);
+        } catch (IOException e) {
+            System.out.println(e);
+            errorEncountered = true;
+            CustomAlertBox alertbox = new CustomAlertBox();
+            alertbox.showAlertBox("Error retrieving info!");
+        }
+        return root;
+    }
+
+    private Parent getMergeSortInfo() {
+        Parent root = null;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("MergeSortInfoFXML.fxml"));
+        try {
+            root = loader.load();
+            MergeSortInfoController controller = loader.getController();
             controller.setWindow(window);
         } catch (IOException e) {
             System.out.println(e);

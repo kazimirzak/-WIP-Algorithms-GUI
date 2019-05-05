@@ -9,7 +9,7 @@ The base case of the recursion is arrays of size zero or one, which are in order
 
 The pivot selection and partitioning steps can be done in several different ways; the choice of specific implementation schemes greatly affects the algorithm's performance.
 
-The running times for insertion sort are:
+The running times for quick sort are:
 Worst-case: O(n²)
 Best-case: O(n * log(n))
 Average-case: O(n * log(n))

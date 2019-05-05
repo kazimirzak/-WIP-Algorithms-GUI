@@ -58,7 +58,7 @@ public class InsertionSortController implements Initializable {
         colorMode.setSelected(CustomStage.isDarkmode.getValue());
         setSpeedOfScrollPane();
         resizeButton();
-        visualBox.getStyleClass().add("hbox-visualBox");
+        visualBox.getStyleClass().add("vbox-visualBox");
         addEffectToButtons();
 
     }

@@ -13,7 +13,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 
 public class EventQueue {
 
-    private List<VisualizeArray> queue;
+    private List<List<VisualizeArray>> queue;
     private int currentEvent;
     public BooleanProperty isPlaying;
     private final DoubleProperty sliderProperty;
@@ -28,7 +28,7 @@ public class EventQueue {
 
     public EventQueue(DoubleProperty sliderProperty) {
         this.sliderProperty = sliderProperty;
-        queue = new ArrayList<>();
+        queue = null;
         currentEvent = -1;
         isPlaying = new SimpleBooleanProperty(false);
         wasInterrupted = false;
@@ -41,7 +41,27 @@ public class EventQueue {
      */
 
     public void addEvent(VisualizeArray event) {
-        queue.add(event);
+        if(queue == null) {
+            queue = new ArrayList<>();
+            queue.add(new ArrayList<>());
+        } else if(queue.size() > 1) {
+            throw new IllegalArgumentException("You cant insert only 1 event when there are multiple queues");
+        }
+        queue.get(0).add(event);
+    }
+
+    public void addEvent(List<VisualizeArray> events) {
+        if(queue == null) {
+            queue = new ArrayList<>();
+            for(int i = 0; i < events.size(); i++) {
+                queue.add(new ArrayList<>());
+            }
+        } else if(queue.size() != events.size()) {
+            throw new IllegalArgumentException("There are too many/few events in the list: " + queue.size() + " != " + events.size());
+        }
+        for(int i = 0; i < events.size(); i++) {
+            queue.get(i).add(events.get(i));
+        }
     }
 
     /**
@@ -50,11 +70,11 @@ public class EventQueue {
 
     public void play() {
         isPlaying.setValue(true);
-        while(isPlaying.getValue() && currentEvent < queue.size() - 1) {
+        while(isPlaying.getValue() && currentEvent < queue.get(0).size() - 1) {
             timeout();
             if(!wasInterrupted && isPlaying.getValue()) {
                 currentEvent++;
-                queue.get(currentEvent).show();
+                queue.forEach(list -> list.get(currentEvent).show());
             }
         }
         isPlaying.setValue(false);
@@ -74,9 +94,9 @@ public class EventQueue {
 
     public void next() {
         isPlaying.setValue(false);
-        if(currentEvent != queue.size() - 1) {
+        if(currentEvent != queue.get(0).size() - 1) {
             currentEvent++;
-            queue.get(currentEvent).show();
+            queue.forEach(list -> list.get(currentEvent).show());
         }
     }
 
@@ -88,7 +108,7 @@ public class EventQueue {
         isPlaying.setValue(false);
         if(currentEvent > 0) {
             currentEvent--;
-            queue.get(currentEvent).show();
+            queue.forEach(list -> list.get(currentEvent).show());
         }
     }
 
@@ -99,7 +119,7 @@ public class EventQueue {
     public void toStart() {
         isPlaying.setValue(false);
         currentEvent = 0;
-        queue.get(currentEvent).show();
+        queue.forEach(list -> list.get(currentEvent).show());
     }
 
     /**
@@ -108,26 +128,17 @@ public class EventQueue {
 
     public void toEnd() {
         isPlaying.setValue(false);
-        currentEvent = queue.size() - 1;
-        queue.get(currentEvent).show();
+        currentEvent = queue.get(0).size() - 1;
+        queue.forEach(list -> list.get(currentEvent).show());
     }
 
     /**
-     * Check if the eventQueue is at the end.
+     * Check if the eventQueue is at the end. Pre condition: there must be atleast 1 event in the queue when called.
      * @return true if this eventQueue is at the end.
      */
 
     public boolean isDone() {
-        return currentEvent == queue.size() - 1;
-    }
-
-    /**
-     * Returns the total steps this eventQueue has.
-     * @return the number of steps.
-     */
-
-    public int getTotalSteps() {
-        return queue.size();
+        return currentEvent == queue.get(0).size() - 1;
     }
 
     /**

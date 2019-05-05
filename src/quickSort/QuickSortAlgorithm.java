@@ -270,7 +270,6 @@ public class QuickSortAlgorithm {
 
     private int partition(int p, int r) {
         VisualizeArray vis;
-        System.out.println("Left: " + p + " Right: " + r);
         vis = new VisualizeArray(visualBox);
         vis.initArray(array);
         vis.setPivot(r);

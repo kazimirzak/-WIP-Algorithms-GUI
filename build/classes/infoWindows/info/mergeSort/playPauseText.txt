@@ -1,0 +1,2 @@
+
+This button will play / pause the animation.
