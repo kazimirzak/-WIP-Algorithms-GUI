@@ -110,7 +110,7 @@ public class VisualizeArray {
 
     private void addPositive(int number, int index) {
         //Rectangle that is actually shown.
-        Rectangle rec = new Rectangle(rectangleWidth, Double.MIN_VALUE);
+        Rectangle rec = new Rectangle(rectangleWidth, 1);
         double multiplier = (double) number / (double) spread;
         rec.heightProperty().bind(visualBox.heightProperty().subtract(30).multiply(multiplier));
         rec.getStyleClass().add("rectangle-standard");

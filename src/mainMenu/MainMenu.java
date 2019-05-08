@@ -37,10 +37,10 @@ public class MainMenu extends Application {
      */
     public static void main(String[] args) {
         Random random = new Random();
-        for(int i = 1; i <= 19; i++) {
-            int number = random.nextInt(50);
-            if(random.nextBoolean())
-                number = number  * (-1);
+        for(int i = 1; i <= 27; i++) {
+            int number = random.nextInt(10);
+            //if(random.nextBoolean())
+                //number = number  * (-1);
             System.out.print(number + " ");
         }
         System.out.println();

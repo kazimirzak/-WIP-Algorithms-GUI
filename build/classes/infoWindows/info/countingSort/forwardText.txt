@@ -1,0 +1,2 @@
+
+This button will go forward one animation when pressed. It will also pause the animation.

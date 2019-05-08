@@ -7,6 +7,9 @@ Please note as this program was made for visualization it is not optimised for h
 and therefore it might take a long time to calculate before showing the visuals if huge inputs are given.
 What a "huge input" is might vary from computer to computer but if you stay <100 elements at all times it should not take long.
 
+Using this program is at own risk.
+No one who has helped in the process of making the program can be held accountable for your use of the information contained or gained from this program!
+
 This program was created and developed by Kenny Brink.
 
 If you find any bugs or have any other inquiries please post them to my gitHub:

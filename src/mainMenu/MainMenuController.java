@@ -2,6 +2,7 @@ package mainMenu;
 
 import binarySearch.BinarySearch;
 import bubbleSort.BubbleSort;
+import countingSort.CountingSort;
 import infoWindows.infoWindow;
 import insertionSort.InsertionSort;
 import java.io.IOException;
@@ -156,6 +157,12 @@ public class MainMenuController implements Initializable {
                 button.setOnAction(e -> {
                     MergeSort mergeSort = new MergeSort(window);
                     window.setMyScene(mergeSort.getScene());
+                });
+                break;
+            case("Counting Sort"):
+                button.setOnAction(e -> {
+                    CountingSort countingSort = new CountingSort(window);
+                    window.setMyScene(countingSort.getScene());
                 });
                 break;
             default:

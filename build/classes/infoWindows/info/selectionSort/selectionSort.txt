@@ -2,7 +2,7 @@ The algorithm divides the input list into two parts: the sublist of items alread
 
 The pivot selection and partitioning steps can be done in several different ways; the choice of specific implementation schemes greatly affects the algorithm's performance.
 
-The running times for insertion sort are:
+The running times for selection sort are:
 Worst-case: O(n²)
 Best-case: O(n²)
 Average-case: O(n²)
