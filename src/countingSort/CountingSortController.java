@@ -45,7 +45,7 @@ public class CountingSortController implements Initializable {
     private HBox inputLabelContainer, countingLabelContainer, outputLabelContainer;
 
     @FXML
-    private TextField arrayInputField, rangeInputField;
+    private TextField arrayInputField;
 
     @FXML
     private Label statusLabel;

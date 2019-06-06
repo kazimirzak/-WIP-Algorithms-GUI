@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.ToggleSwitch?>
 
-<BorderPane fx:id="layout" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="countingSort.CountingSortController">
+<BorderPane fx:id="layout" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="radixSort.RadixSortController">
    <bottom>
       <Label fx:id="helperText" minHeight="32.0" text="Press the ? at the top right for help!" BorderPane.alignment="CENTER" />
    </bottom>
@@ -56,7 +56,7 @@
          <children>
             <HBox alignment="CENTER_LEFT">
                <children>
-                  <Label text="Counting Sort">
+                  <Label text="Radix Sort">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -67,15 +67,14 @@
                <content>
                   <VBox fx:id="visualBox" alignment="CENTER">
                      <children>
-                        <HBox fx:id="inputLabelContainer" />
-                        <VBox fx:id="inputBox" alignment="BOTTOM_CENTER" VBox.vgrow="ALWAYS" />
-                        <HBox fx:id="countingLabelContainer" />
-                        <VBox fx:id="countingBox" alignment="BOTTOM_CENTER" VBox.vgrow="ALWAYS" />
-                        <HBox fx:id="outputLabelContainer" VBox.vgrow="ALWAYS" />
-                        <VBox fx:id="outputBox" alignment="BOTTOM_CENTER">
-                           <padding>
-                              <Insets bottom="5.0" />
-                           </padding></VBox>
+                        <HBox fx:id="arrayLabelContainer" />
+                        <VBox fx:id="arrayBox" alignment="BOTTOM_CENTER" VBox.vgrow="ALWAYS" />
+                        <HBox fx:id="numberLabelContainer" VBox.vgrow="ALWAYS" />
+                        <ScrollPane fx:id="numberScrollPane">
+                           <content>
+                              <HBox fx:id="numberBox" alignment="CENTER" spacing="5.0" />
+                           </content>
+                        </ScrollPane>
                      </children></VBox>
                </content>
             </ScrollPane>

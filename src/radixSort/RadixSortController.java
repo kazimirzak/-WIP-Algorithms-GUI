@@ -1,6 +1,5 @@
 package radixSort;
 
-import countingSort.*;
 import infoWindows.infoWindow;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -34,19 +33,19 @@ public class RadixSortController implements Initializable {
     private Button resizeButton, generateButton, resetButton, backButton, toStart, toEnd, forward, backward, playPause;
 
     @FXML
-    private ScrollPane scrollPane;
+    private ScrollPane scrollPane, numberScrollPane;
 
     @FXML
     private ToggleSwitch colorMode;
 
     @FXML
-    private VBox inputBox, countingBox, outputBox, visualBox;
+    private VBox visualBox, arrayBox;
 
     @FXML
-    private HBox inputLabelContainer, countingLabelContainer, outputLabelContainer;
+    private HBox arrayLabelContainer, numberLabelContainer, numberBox;
 
     @FXML
-    private TextField arrayInputField, rangeInputField;
+    private TextField arrayInputField;
 
     @FXML
     private Label statusLabel;
@@ -170,6 +169,13 @@ public class RadixSortController implements Initializable {
             // Make the amount it scrolls by equal to screen size.
             scrollPane.setVvalue(vValue + -deltaY / width);
         });
+        numberBox.setOnScroll(e -> {
+            double deltaY = e.getDeltaY() * 10;
+            double width = numberScrollPane.getContent().getBoundsInLocal().getWidth();
+            double vValue = numberScrollPane.getVvalue();
+            // Make the amount it scrolls by equal to screen size.
+            numberScrollPane.setVvalue(vValue + -deltaY / width);
+        });
     }
 
     /**
@@ -193,8 +199,8 @@ public class RadixSortController implements Initializable {
             visualizer.stopCurrentAnimation();
         }
         String input = arrayInputField.getText();
-        visualizer = new RadixSortAlgorithm(input, statusLabel, visualBox, inputBox, countingBox, outputBox, inputLabelContainer, countingLabelContainer,
-                outputLabelContainer, arrayInputField, generateButton, toStart, toEnd, forward, backward, playPause, speedSlider);
+        visualizer = new RadixSortAlgorithm(input, statusLabel, visualBox, arrayBox, numberBox, arrayLabelContainer, numberLabelContainer,
+                arrayInputField, generateButton, toStart, toEnd, forward, backward, playPause, speedSlider);
     }
 
     /**
@@ -202,6 +208,6 @@ public class RadixSortController implements Initializable {
      */
 
     public void helpButton() {
-        infoWindow info = new infoWindow("Counting Sort");
+        infoWindow info = new infoWindow("Radix Sort");
     }
 }

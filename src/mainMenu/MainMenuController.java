@@ -23,6 +23,7 @@ import linearSearch.LinearSearch;
 import mergeSort.MergeSort;
 import org.controlsfx.control.ToggleSwitch;
 import quickSort.QuickSort;
+import radixSort.RadixSort;
 import selectionSort.SelectionSort;
 import templates.CustomAlertBox;
 import templates.CustomStage;
@@ -163,6 +164,12 @@ public class MainMenuController implements Initializable {
                 button.setOnAction(e -> {
                     CountingSort countingSort = new CountingSort(window);
                     window.setMyScene(countingSort.getScene());
+                });
+                break;
+            case("Radix Sort"):
+                button.setOnAction(e -> {
+                    RadixSort radixSort = new RadixSort(window);
+                    window.setMyScene(radixSort.getScene());
                 });
                 break;
             default:

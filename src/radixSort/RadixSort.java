@@ -1,6 +1,5 @@
 package radixSort;
 
-import countingSort.*;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -34,7 +33,7 @@ public class RadixSort {
      */
 
     public Parent getScene() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("CountingSortFXML.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("RadixSortFXML.fxml"));
         Parent root = null;
         try {
             root = loader.load();

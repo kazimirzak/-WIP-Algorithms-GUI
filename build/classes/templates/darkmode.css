@@ -177,6 +177,10 @@
     -fx-fill: rgb(255,140,0);
 }
 
+.rectangle-red {
+    -fx-fill: rgb(255,0,0);
+}
+
 .rectangle-done {
     -fx-fill: rgb(34,139,34);
 }
@@ -186,6 +190,10 @@
 }
 
 .rectangle-disabled {
+    -fx-fill: darkgrey;
+}
+
+.triangle {
     -fx-fill: darkgrey;
 }
 

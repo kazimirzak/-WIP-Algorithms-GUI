@@ -1,6 +1,5 @@
 package radixSort;
 
-import countingSort.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -16,7 +15,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import templates.EventQueue;
+import templates.Showable;
 import templates.VisualizeArray;
+import templates.VisualizeStringList;
 
 /**
  * Creates and handles all action in the QuickSort scene.
@@ -26,45 +27,41 @@ import templates.VisualizeArray;
 public class RadixSortAlgorithm {
 
     private Label statusLabel;
-    private VBox visualBox, inputBox, countingBox, outputBox;
-    private HBox inputLabelContainer, countingLabelContainer, outputLabelContainer;
+    private VBox visualBox, arrayBox;
+    private HBox arrayLabelContainer, numberLabelContainer, numberBox;
     private TextField arrayInputField;
     private Button generateButton, toStart, toEnd, forward, backward, playPause;
     private Slider speedSlider;
     private EventQueue visuals;
-    private VisualizeArray initialVisualization;
     private Thread currentThread;
-    private int[] array, counting, output;
-    private int comparisons, maxValue, range, highestCountingValue;
+    private int[] array;
+    private String[] stringArray;
+    private VisualizeStringList earlierVisual;
+    private int maxDigits;
     private static boolean encounteredError = false;
 
-    public RadixSortAlgorithm(String input, Label statusLabel, VBox visualBox, VBox inputBox, VBox countingBox, VBox outputBox, HBox inputLabelContainer,
-            HBox countingLabelContainer, HBox outputLabelContainer, TextField inputField, Button generateButton, Button toStart,
+    public RadixSortAlgorithm(String input, Label statusLabel, VBox visualBox, VBox arrayBox, HBox numberBox, HBox arrayLabelContainer,
+            HBox numberLabelContainer, TextField inputField, Button generateButton, Button toStart,
             Button toEnd, Button forward, Button backward, Button playPause, Slider speedSlider) {
         this.statusLabel = statusLabel;
         this.arrayInputField = inputField;
         this.generateButton = generateButton;
         this.visualBox = visualBox;
-        this.inputBox = inputBox;
-        this.countingBox = countingBox;
-        this.outputBox = outputBox;
-        this.inputLabelContainer = inputLabelContainer;
-        this.countingLabelContainer = countingLabelContainer;
-        this.outputLabelContainer = outputLabelContainer;
+        this.arrayBox = arrayBox;
+        this.numberBox = numberBox;
+        this.arrayLabelContainer = arrayLabelContainer;
+        this.numberLabelContainer = numberLabelContainer;
         this.toStart = toStart;
         this.toEnd = toEnd;
         this.forward = forward;
         this.backward = backward;
         this.playPause = playPause;
         this.speedSlider = speedSlider;
-        comparisons = 0;
         //To clear any animation already in the visualbox.
-        inputBox.getChildren().clear();
-        countingBox.getChildren().clear();
-        outputBox.getChildren().clear();
-        inputLabelContainer.getChildren().clear();
-        countingLabelContainer.getChildren().clear();
-        outputLabelContainer.getChildren().clear();
+        arrayBox.getChildren().clear();
+        numberBox.getChildren().clear();
+        arrayLabelContainer.getChildren().clear();
+        numberLabelContainer.getChildren().clear();
 
         //Removes the style for showing error if the statuslabel has already shown an error.
         if (encounteredError) {
@@ -77,12 +74,8 @@ public class RadixSortAlgorithm {
 
         //If not errors were found in the input it gets ready for a input to search on.
         if (!encounteredError) {
-            highestCountingValue = array.length;
-            range = Arrays.stream(array).max().getAsInt();
-            maxValue = range;
-            counting = new int[range + 1];
-            output = new int[array.length];
-            counting = new int[range + 1];
+            maxDigits = getDigits(Arrays.stream(array).max().getAsInt());
+            padStringArrayWithZeros();
             createLabels();
             setBoxConstraints();
             createEventQueue();
@@ -117,7 +110,8 @@ public class RadixSortAlgorithm {
                 showError("Input is empty!", arrayInputField, generateButton);
             } else {
                 try {
-                    array = Arrays.stream(input.split("\\s+"))
+                    stringArray = input.split("\\s+");
+                    array = Arrays.stream(stringArray)
                             .mapToInt(Integer::parseInt)
                             .toArray();
                     boolean negatives = Arrays.stream(array).anyMatch(number -> number < 0);
@@ -181,22 +175,32 @@ public class RadixSortAlgorithm {
         button.setDisable(false);
     }
 
+    private void padStringArrayWithZeros() {
+        for(int i = 0; i < array.length; i++) {
+            int digits = getDigits(array[i]);
+            if(digits < maxDigits) {
+                String string = "";
+                for(int j = digits; j < maxDigits; j++) {
+                    string += "0";
+                }
+                string += array[i];
+                stringArray[i] = string;
+            }
+        }
+    }
+
     private void createLabels() {
-        Label input = new Label("Input-array");
-        input.getStyleClass().add("label-visuals");
-        Label left = new Label("Counting-Array");
-        left.getStyleClass().add("label-visuals");
-        Label right = new Label("Result-Array");
-        right.getStyleClass().add("label-visuals");
-        inputLabelContainer.getChildren().add(input);
-        countingLabelContainer.getChildren().add(left);
-        outputLabelContainer.getChildren().add(right);
+        Label arrayLabel = new Label("Array-View");
+        arrayLabel.getStyleClass().add("label-visuals");
+        Label numberLabel = new Label("Number-View");
+        numberLabel.getStyleClass().add("label-visuals");
+        arrayLabelContainer.getChildren().add(arrayLabel);
+        numberLabelContainer.getChildren().add(numberLabel);
     }
 
     private void setBoxConstraints() {
-        inputBox.prefHeightProperty().bind(visualBox.heightProperty().multiply(0.33333));
-        countingBox.prefHeightProperty().bind(visualBox.heightProperty().multiply(0.33333));
-        outputBox.prefHeightProperty().bind(visualBox.heightProperty().multiply(0.33333));
+        arrayBox.prefHeightProperty().bind(visualBox.heightProperty().multiply(0.33333));
+        numberBox.prefHeightProperty().bind(visualBox.heightProperty().multiply(0.66666));
     }
 
     /**
@@ -206,7 +210,7 @@ public class RadixSortAlgorithm {
         statusLabel.setText("Generating animations...");
         visuals = new EventQueue(speedSlider.valueProperty());
         showInitialArray();
-        doCountingSort();
+        doRadixSort();
         showEndArray();
         currentThread = new Thread(() -> visuals.play());
         buttonSetup(visuals);
@@ -215,34 +219,32 @@ public class RadixSortAlgorithm {
     }
 
     private void showInitialArray() {
+        VisualizeStringList stringVis;
         VisualizeArray vis;
-        List<VisualizeArray> events = new ArrayList<>();
-        vis = new VisualizeArray(inputBox);
+        List<Showable> events = new ArrayList<>();
+        stringVis = new VisualizeStringList(numberBox);
+        stringVis.initArray(stringArray);
+        stringVis.show();
+        earlierVisual = stringVis;
+        events.add(stringVis);
+        vis = new VisualizeArray(arrayBox);
         vis.initArray(array);
-        vis.show();
-        events.add(vis);
-        vis = new VisualizeArray(countingBox);
-        vis.initArray(counting, highestCountingValue);
-        vis.show();
-        events.add(vis);
-        vis = new VisualizeArray(outputBox);
-        vis.initArray(output, maxValue);
         vis.show();
         events.add(vis);
         visuals.addEvent(events);
     }
 
     private void showEndArray() {
+        VisualizeStringList stringVis;
         VisualizeArray vis;
-        List<VisualizeArray> events = new ArrayList<>();
-        vis = new VisualizeArray(inputBox);
+        List<Showable> events = new ArrayList<>();
+        stringVis = new VisualizeStringList(numberBox);
+        stringVis.addVisuals(earlierVisual);
+        stringVis.initArray(stringArray);
+        earlierVisual = stringVis;
+        events.add(stringVis);
+        vis = new VisualizeArray(arrayBox);
         vis.initArray(array);
-        events.add(vis);
-        vis = new VisualizeArray(countingBox);
-        vis.initArray(counting, highestCountingValue);
-        events.add(vis);
-        vis = new VisualizeArray(outputBox);
-        vis.initArray(output, maxValue);
         events.add(vis);
         visuals.addEvent(events);
     }
@@ -267,7 +269,7 @@ public class RadixSortAlgorithm {
                 Platform.runLater(() -> playPause.setText("▶"));
                 //Checks if the eventQueue is done and if the number was found and sets the statuslabel appropriately.
                 if (eq.isDone()) {
-                    Platform.runLater(() -> statusLabel.setText("Finished! Did " + comparisons + " comparisons"));
+                    Platform.runLater(() -> statusLabel.setText("Finished!"));
                 } else {
                     statusLabel.setText(statusLabel.getText() + " Paused!");
                 }
@@ -281,7 +283,7 @@ public class RadixSortAlgorithm {
         forward.setOnAction(e -> {
             eq.next();
             if (eq.isDone()) {
-                Platform.runLater(() -> statusLabel.setText("Finished! Did " + comparisons + " comparisons"));
+                Platform.runLater(() -> statusLabel.setText("Finished!"));
             } else {
                 Platform.runLater(() -> statusLabel.setText("Sorting... Paused!"));
             }
@@ -289,7 +291,7 @@ public class RadixSortAlgorithm {
         backward.setOnAction(e -> {
             eq.previous();
             if (eq.isDone()) {
-                Platform.runLater(() -> statusLabel.setText("Finished! Did " + comparisons + " comparisons"));
+                Platform.runLater(() -> statusLabel.setText("Finished!"));
             } else {
                 Platform.runLater(() -> statusLabel.setText("Sorting... Paused!"));
             }
@@ -297,7 +299,7 @@ public class RadixSortAlgorithm {
         toStart.setOnAction(e -> {
             eq.toStart();
             if (eq.isDone()) {
-                Platform.runLater(() -> statusLabel.setText("Finished! Did " + comparisons + " comparisons"));
+                Platform.runLater(() -> statusLabel.setText("Finished!"));
             } else {
                 Platform.runLater(() -> statusLabel.setText("Sorting... Paused!"));
             }
@@ -305,7 +307,7 @@ public class RadixSortAlgorithm {
         toEnd.setOnAction(e -> {
             eq.toEnd();
             if (eq.isDone()) {
-                Platform.runLater(() -> statusLabel.setText("Finished! Did " + comparisons + " comparisons"));
+                Platform.runLater(() -> statusLabel.setText("Finished!"));
             } else {
                 Platform.runLater(() -> statusLabel.setText("Sorting... Paused!"));
             }
@@ -323,124 +325,101 @@ public class RadixSortAlgorithm {
         });
     }
 
-    /**
-     * Does QuickSort on this array and creates visuals during this.
-     */
-    private void doCountingSort() {
-        VisualizeArray vis;
-        List<VisualizeArray> events = new ArrayList<>();
-        for (int i = 0; i < array.length; i++) {
-            //Visuals before count
-            vis = new VisualizeArray(inputBox);
-            vis.initArray(array);
-            vis.setInFocus(i);
-            events.add(vis);
-            vis = new VisualizeArray(countingBox);
-            vis.initArray(counting, highestCountingValue);
-            vis.setInFocus(array[i]);
-            events.add(vis);
-            vis = new VisualizeArray(outputBox);
-            vis.initArray(output, maxValue);
-            events.add(vis);
-            visuals.addEvent(events);
-            events.clear();
-
-            counting[array[i]]++;
-
-            //Visuals after count
-            vis = new VisualizeArray(inputBox);
-            vis.initArray(array);
-            vis.setInFocus(i);
-            events.add(vis);
-            vis = new VisualizeArray(countingBox);
-            vis.initArray(counting, highestCountingValue);
-            vis.setDone(array[i]);
-            events.add(vis);
-            vis = new VisualizeArray(outputBox);
-            vis.initArray(output, maxValue);
-            events.add(vis);
-            visuals.addEvent(events);
-            events.clear();
+    private void doRadixSort() {
+        for(int i = 0; i < maxDigits; i++) {
+            int[] digits = new int[stringArray.length];
+            for(int j = 0; j < stringArray.length; j++) {
+                String string = stringArray[j];
+                digits[j] = Integer.parseInt(string.substring(string.length() - 1 - i, string.length() - i));
+            }
+            bubbleSort(digits, i);
+            //if statement to make it not show the end.
+            if(i != maxDigits - 1) {
+                List<Showable> events = new ArrayList<>();
+                VisualizeStringList stringVis = new VisualizeStringList(numberBox);
+                stringVis.addVisuals(earlierVisual);
+                stringVis.initArray(stringArray);
+                earlierVisual = stringVis;
+                events.add(stringVis);
+                VisualizeArray vis = new VisualizeArray(arrayBox);
+                vis.initArray(array);
+                events.add(vis);
+                visuals.addEvent(events);
+            }
         }
-        for (int i = 1; i < counting.length; i++) {
+    }
 
-            //Visuals before counting upwards
-            vis = new VisualizeArray(inputBox);
+    private void bubbleSort(int[] digits, int currentDigit) {
+        VisualizeArray vis;
+        VisualizeStringList stringVis;
+        List<Showable> events = new ArrayList<>();
+        for (int i = 0; i < digits.length; i++) {
+            for (int j = digits.length - 1; j > i; j--) {
+                stringVis = new VisualizeStringList(numberBox);
+                stringVis.addVisuals(earlierVisual);
+                stringVis.initArray(stringArray);
+                stringVis.setCurrentDigitInFocus(currentDigit);
+                stringVis.setCurrentDigitAndIndexInFocus(currentDigit, j);
+                stringVis.setCurrentDigitAndIndexInFocus(currentDigit, j - 1);
+                events.add(stringVis);
+                vis = new VisualizeArray(arrayBox);
+                vis.initArray(array);
+                vis.setInFocus(j);
+                vis.setInFocus(j - 1);
+                events.add(vis);
+                visuals.addEvent(events);
+                events.clear();
+                if (digits[j] < digits[j - 1]) {
+                    swap(digits ,j, j - 1);
+                    stringVis = new VisualizeStringList(numberBox);
+                    stringVis.addVisuals(earlierVisual);
+                    stringVis.initArray(stringArray);
+                    stringVis.setCurrentDigitInFocus(currentDigit);
+                    stringVis.setCurrentDigitAndIndexInFocus(currentDigit, j);
+                    stringVis.setCurrentDigitAndIndexInFocus(currentDigit, j - 1);
+                    events.add(stringVis);
+                    vis = new VisualizeArray(arrayBox);
+                    vis.initArray(array);
+                    vis.setInFocus(j);
+                    vis.setInFocus(j - 1);
+                    events.add(vis);
+                    visuals.addEvent(events);
+                    events.clear();
+                }
+            }
+            stringVis = new VisualizeStringList(numberBox);
+            stringVis.addVisuals(earlierVisual);
+            stringVis.initArray(stringArray);
+            stringVis.setCurrentDigitInFocus(currentDigit);
+            stringVis.setCurrentDigitAndIndexDone(currentDigit, i);
+            events.add(stringVis);
+            vis = new VisualizeArray(arrayBox);
             vis.initArray(array);
-            events.add(vis);
-            vis = new VisualizeArray(countingBox);
-            vis.initArray(counting, highestCountingValue);
-            vis.setInFocus(i);
-            vis.setInFocus(i - 1);
-            events.add(vis);
-            vis = new VisualizeArray(outputBox);
-            vis.initArray(output, maxValue);
-            events.add(vis);
-            visuals.addEvent(events);
-            events.clear();
-
-            counting[i] = counting[i] + counting[i - 1];
-
-            //Visuals after counting upwards
-            vis = new VisualizeArray(inputBox);
-            vis.initArray(array);
-            events.add(vis);
-            vis = new VisualizeArray(countingBox);
-            vis.initArray(counting, highestCountingValue);
             vis.setDone(i);
             events.add(vis);
-            vis = new VisualizeArray(outputBox);
-            vis.initArray(output, maxValue);
-            events.add(vis);
             visuals.addEvent(events);
             events.clear();
         }
-        for (int i = array.length - 1; i >= 0; i--) {
+    }
 
-            vis = new VisualizeArray(inputBox);
-            vis.initArray(array);
-            vis.setInFocus(i);
-            events.add(vis);
-            vis = new VisualizeArray(countingBox);
-            vis.initArray(counting, highestCountingValue);
-            vis.setInFocus(array[i]);
-            events.add(vis);
-            vis = new VisualizeArray(outputBox);
-            vis.initArray(output, maxValue);
-            events.add(vis);
-            visuals.addEvent(events);
-            events.clear();
+    private void swap(int[] digits, int index1, int index2) {
+        int temp = array[index1];
+        array[index1] = array[index2];
+        array[index2] = temp;
+        temp = digits[index1];
+        digits[index1] = digits[index2];
+        digits[index2] = temp;
+        String aux = stringArray[index1];
+        stringArray[index1] = stringArray[index2];
+        stringArray[index2] = aux;
+    }
 
-            counting[array[i]]--;
-            output[counting[array[i]]] = array[i];
-
-            vis = new VisualizeArray(inputBox);
-            vis.initArray(array);
-            vis.setInFocus(i);
-            events.add(vis);
-            vis = new VisualizeArray(countingBox);
-            vis.initArray(counting, highestCountingValue);
-            vis.setInFocus(array[i]);
-            events.add(vis);
-            vis = new VisualizeArray(outputBox);
-            vis.initArray(output, maxValue);
-            vis.setInFocus(counting[array[i]]);
-            events.add(vis);
-            visuals.addEvent(events);
-            events.clear();
-
-            vis = new VisualizeArray(inputBox);
-            vis.initArray(array);
-            events.add(vis);
-            vis = new VisualizeArray(countingBox);
-            vis.initArray(counting, highestCountingValue);
-            events.add(vis);
-            vis = new VisualizeArray(outputBox);
-            vis.initArray(output, maxValue);
-            vis.setDone(counting[array[i]]);
-            events.add(vis);
-            visuals.addEvent(events);
-            events.clear();
+    private static int getDigits(int number) {
+        int count = 0;
+        while(number > 0) {
+            number = number / 10;
+            count++;
         }
+        return count;
     }
 }

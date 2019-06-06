@@ -16,7 +16,7 @@ import javafx.scene.shape.Rectangle;
  * @author Kenny Brink - kebri18@student.sdu.dk
  */
 
-public class VisualizeArray {
+public class VisualizeArray implements Showable{
 
     private VBox visualBox;
     private HBox positiveSide, negativeSide;

@@ -37,8 +37,8 @@ public class MainMenu extends Application {
      */
     public static void main(String[] args) {
         Random random = new Random();
-        for(int i = 1; i <= 27; i++) {
-            int number = random.nextInt(10);
+        for(int i = 1; i <= 15; i++) {
+            int number = random.nextInt(999);
             //if(random.nextBoolean())
                 //number = number  * (-1);
             System.out.print(number + " ");

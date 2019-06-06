@@ -11,9 +11,9 @@ import javafx.beans.property.SimpleBooleanProperty;
  * @author Kenny Brink - kebri18@student.sdu.dk
  */
 
-public class EventQueue {
+public class EventQueue <T extends Showable> {
 
-    private List<List<VisualizeArray>> queue;
+    private List<List<T>> queue;
     private int currentEvent;
     public BooleanProperty isPlaying;
     private final DoubleProperty sliderProperty;
@@ -40,7 +40,7 @@ public class EventQueue {
      * @param event
      */
 
-    public void addEvent(VisualizeArray event) {
+    public void addEvent(T event) {
         if(queue == null) {
             queue = new ArrayList<>();
             queue.add(new ArrayList<>());
@@ -50,7 +50,7 @@ public class EventQueue {
         queue.get(0).add(event);
     }
 
-    public void addEvent(List<VisualizeArray> events) {
+    public void addEvent(List<T> events) {
         if(queue == null) {
             queue = new ArrayList<>();
             for(int i = 0; i < events.size(); i++) {
