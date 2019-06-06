@@ -1,0 +1,24 @@
+In computer science, radix sort is a non-comparative integer sorting algorithm that sorts data with integer keys by grouping keys by the individual digits which share the same significant position and value. A positional notation is required, but because integers can represent strings of characters (e.g., names or dates) and specially formatted floating point numbers, radix sort is not limited to integers.
+
+This implementation of radix sort uses bubble sort as sorting algorithm. Generally you would want counting sort because all numbers are going to be between 0 and 9 (assuming its in base-10). I could not use counting sort of my implementation as it is not a in-place algorithm and when it is not in-place the amount of animations increase significantly so therefore it uses bubble sort as this is a in-place, stable sorting algorithm. That being said after each iteration of digits the array and numbers are in the same order no matter what algorithm is used.
+
+The running times for radix sort are:
+Worst-case: O(d(f(x)))
+Best-case: O(d(f(x)))
+Average-case: O(d(f(x)))
+
+Here is d the amount of digits the longest number has. In this case f(x) is the running time of the algorithm used to sort each digit.
+
+As this implementation uses bubble sort then the following times for are:
+Worst-case: O(d(n²))
+Best-case: O(d(n))
+Average-case: O(d(n²))
+
+Please note that this implementation of radix sort requires positive numbers.
+
+For all numbers mentioned below the following requirements should be met:
+It has to be a positive whole number.
+
+Explanation of GUI:
+
+In the animation window you will see an array-view and a numbers-view. The array-view is to show what the array looks like at all times, while the numbers-view is to show what radix-sort is actually doing at any time.

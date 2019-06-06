@@ -67,6 +67,9 @@ public class infoWindow {
             case ("Counting Sort"):
                 window.setMyScene(getCountingSortInfo());
                 break;
+            case ("Radix Sort"):
+                window.setMyScene(getRadixSortInfo());
+                break;
             default:
                 errorEncountered = true;
                 CustomAlertBox alertbox = new CustomAlertBox();
@@ -229,6 +232,22 @@ public class infoWindow {
         try {
             root = loader.load();
             CountingSortInfoController controller = loader.getController();
+            controller.setWindow(window);
+        } catch (IOException e) {
+            System.out.println(e);
+            errorEncountered = true;
+            CustomAlertBox alertbox = new CustomAlertBox();
+            alertbox.showAlertBox("Error retrieving info!");
+        }
+        return root;
+    }
+
+    private Parent getRadixSortInfo() {
+        Parent root = null;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("RadixSortInfoFXML.fxml"));
+        try {
+            root = loader.load();
+            RadixSortInfoController controller = loader.getController();
             controller.setWindow(window);
         } catch (IOException e) {
             System.out.println(e);
