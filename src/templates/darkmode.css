@@ -170,7 +170,6 @@
 
 .rectangle-standard {
     -fx-fill: rgb(30,144,255);
-
 }
 
 .rectangle-inFocus {
@@ -196,6 +195,35 @@
 .triangle {
     -fx-fill: darkgrey;
 }
+
+.circle-standard {
+    -fx-fill: rgb(30,144,255);
+}
+
+.circle-inFocus {
+    -fx-fill: rgb(255,140,0);
+}
+
+.circle-red {
+    -fx-fill: rgb(255,0,0);
+}
+
+.circle-done {
+    -fx-fill: rgb(34,139,34);
+}
+
+.circle-pivot {
+    -fx-fill: rgb(255,140,0);
+}
+
+.ghost-cirle {
+    -fx-fill: rgba(1,1,1,0);
+}
+
+.binary-tree-connector {
+    -fx-stroke: -lightestBackground;
+}
+
 
 /* Sliders */
 
@@ -231,6 +259,29 @@
 }
 
 .infoText-text-field {
+    -fx-background-color: -lightBackground;
+}
+
+/* Comboboxes */
+
+.combo-box .list-cell {
+    -fx-text-fill: -darkestText;
+}
+
+.combo-box-base {
+    -fx-background-color: -darkBackground;
+}
+
+.combo-box-popup .list-view .list-cell {
+    -fx-background-color: -darkBackground;
+    -fx-text-fill: -darkestText;
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: -darkBackground;
+}
+
+.combo-box .list-view .list-cell:hover {
     -fx-background-color: -lightBackground;
 }
 

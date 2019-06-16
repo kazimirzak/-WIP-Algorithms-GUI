@@ -3,6 +3,7 @@ package mainMenu;
 import binarySearch.BinarySearch;
 import bubbleSort.BubbleSort;
 import countingSort.CountingSort;
+import heapSort.HeapSort;
 import infoWindows.infoWindow;
 import insertionSort.InsertionSort;
 import java.io.IOException;
@@ -170,6 +171,12 @@ public class MainMenuController implements Initializable {
                 button.setOnAction(e -> {
                     RadixSort radixSort = new RadixSort(window);
                     window.setMyScene(radixSort.getScene());
+                });
+                break;
+            case("Heap Sort"):
+                button.setOnAction(e -> {
+                    HeapSort heapSort = new HeapSort(window);
+                    window.setMyScene(heapSort.getScene());
                 });
                 break;
             default:

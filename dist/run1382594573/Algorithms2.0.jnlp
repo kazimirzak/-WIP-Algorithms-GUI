@@ -8,7 +8,7 @@
     <update check="always"/>
     <resources>
         <j2se version="10.0.2+" href="http://java.sun.com/products/autodl/j2se"/>
-        <jar href="Algorithms2.0.jar" size="221515" download="eager"/>
+        <jar href="Algorithms2.0.jar" size="249604" download="eager"/>
         <jar href="lib\controlsfx-9.0.0.jar" size="946412" download="eager"/>
         <jar href="lib\controlsfx-samples-9.0.0.jar" size="677874" download="eager"/>
         <jar href="lib\fxsampler-1.0.10.jar" size="31437" download="eager"/>
