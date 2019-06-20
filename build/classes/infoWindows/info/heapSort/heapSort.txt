@@ -1,0 +1,10 @@
+In computer science, heap sort is a comparison-based sorting algorithm. Heap sort can be thought of as an improved selection sort: like that algorithm, it divides its input into a sorted and an unsorted region, and it iteratively shrinks the unsorted region by extracting the largest element and moving that to the sorted region. The improvement consists of the use of a heap data structure rather than a linear-time search to find the maximum.
+
+The running times for heap sort are:
+Worst-case: O(n log(n))
+Best-case: O(n log(n)) or O(n)
+Average-case: O(n log(n))
+
+Here the best case have two different running time. O(n log(n)) is if the keys (numbers) are all distinct and O(n) is if all the keys are equal.
+
+Explanation of GUI:

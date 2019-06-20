@@ -70,6 +70,9 @@ public class infoWindow {
             case ("Radix Sort"):
                 window.setMyScene(getRadixSortInfo());
                 break;
+            case ("Heap Sort"):
+                window.setMyScene(getHeapSortInfo());
+                break;
             default:
                 errorEncountered = true;
                 CustomAlertBox alertbox = new CustomAlertBox();
@@ -248,6 +251,22 @@ public class infoWindow {
         try {
             root = loader.load();
             RadixSortInfoController controller = loader.getController();
+            controller.setWindow(window);
+        } catch (IOException e) {
+            System.out.println(e);
+            errorEncountered = true;
+            CustomAlertBox alertbox = new CustomAlertBox();
+            alertbox.showAlertBox("Error retrieving info!");
+        }
+        return root;
+    }
+
+    private Parent getHeapSortInfo() {
+        Parent root = null;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("HeapSortInfoFXML.fxml"));
+        try {
+            root = loader.load();
+            HeapSortInfoController controller = loader.getController();
             controller.setWindow(window);
         } catch (IOException e) {
             System.out.println(e);

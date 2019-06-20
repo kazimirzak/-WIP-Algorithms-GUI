@@ -1,4 +1,2 @@
-Dictionaries
-Priority Queues
 Searching
 Sorting

@@ -1,4 +1,4 @@
-package heapSort;
+package heapQueue;
 
 import infoWindows.infoWindow;
 import java.net.URL;
@@ -8,13 +8,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.controlsfx.control.ToggleSwitch;
@@ -25,15 +28,17 @@ import templates.CustomStage;
  *
  * @author Kenny Brink - kebri18@student.sdu.dk
  */
-public class HeapSortController implements Initializable {
+public class HeapQueueController implements Initializable {
 
     private CustomStage window;
     private Parent prevScene;
-    private HeapSort insertionSort;
-    private HeapSortAlgorithm visualizer;
+    private HeapQueue insertionSort;
+    private HeapQueueAlgorithm visualizer;
+    private static String defaultHeapType  = "Max Heap";
 
     @FXML
-    private Button resizeButton, generateButton, resetButton, backButton, toStart, toEnd, forward, backward, playPause;
+    private Button resizeButton, generateButton, resetButton, backButton, toStart, toEnd, forward, backward,
+            playPause, add, moveUp, moveDown, remove, clearAll;
 
     @FXML
     private ScrollPane scrollPane;
@@ -42,13 +47,13 @@ public class HeapSortController implements Initializable {
     private ToggleSwitch colorMode;
 
     @FXML
-    private VBox resultBox, heapBox, treeBox, visualBox;
+    private VBox heapBox, treeBox, visualBox;
 
     @FXML
-    private HBox resultLabelContainer, heapLabelContainer, treeLabelContainer;
+    private HBox heapLabelContainer, treeLabelContainer, gridBox;
 
     @FXML
-    private TextField arrayInputField;
+    private TextField arrayInputField, numberInputField;
 
     @FXML
     private Label statusLabel;
@@ -57,7 +62,13 @@ public class HeapSortController implements Initializable {
     private Slider speedSlider;
 
     @FXML
-    private ComboBox<String> heapType;
+    private ComboBox<String> heapType, commands;
+
+    @FXML
+    private ListView listView;
+
+    @FXML
+    private GridPane arrayInputGrid, commandGrid;
 
     /**
      * Initializes the controller class.
@@ -71,6 +82,8 @@ public class HeapSortController implements Initializable {
         visualBox.getStyleClass().add("vbox-visualBox");
         addEffectToButtons();
         initComboBox();
+        initInputArray();
+        initListView();
     }
 
     /**
@@ -80,7 +93,7 @@ public class HeapSortController implements Initializable {
      * @param insertionSort
      */
 
-    public void setWindow(CustomStage window, Parent prevScene, HeapSort insertionSort) {
+    public void setWindow(CustomStage window, Parent prevScene, HeapQueue insertionSort) {
         this.window = window;
         this.prevScene = prevScene;
         this.insertionSort = insertionSort;
@@ -99,12 +112,49 @@ public class HeapSortController implements Initializable {
         setOnMousePressed(forward);
         setOnMousePressed(backward);
         setOnMousePressed(playPause);
+        setOnMousePressed(add);
+        setOnMousePressed(moveUp);
+        setOnMousePressed(moveDown);
+        setOnMousePressed(remove);
+        setOnMousePressed(clearAll);
+
+        add.prefWidthProperty().bind(moveDown.widthProperty());
+        moveUp.prefWidthProperty().bind(moveDown.widthProperty());
+        remove.prefWidthProperty().bind(moveDown.widthProperty());
+        clearAll.prefWidthProperty().bind(moveDown.widthProperty());
     }
 
     private void initComboBox() {
-        ObservableList<String> options = FXCollections.observableArrayList("Max Heap", "Min Heap");
-        heapType.getItems().addAll(options);
-        heapType.getSelectionModel().select("Max Heap");
+        ObservableList<String> types = FXCollections.observableArrayList("Max Heap", "Min Heap");
+        heapType.getItems().addAll(types);
+        heapType.getSelectionModel().select(defaultHeapType);
+
+        heapType.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
+            if(!oldValue.equals(newValue)) {
+                defaultHeapType = newValue;
+                resetButton();
+            }
+        }));
+
+        ObservableList<String> commandsList = FXCollections.observableArrayList("Insert Key", "Extract Min/Max Key", "Increase Key", "Decrease Key");
+        commands.getItems().addAll(commandsList);
+        commands.getSelectionModel().select("Insert Key");
+    }
+
+    private void initInputArray() {
+        arrayInputField.textProperty().addListener(((observable, oldValue, newValue) -> {
+            if(newValue.length() == 0) {
+                arrayInputField.setAlignment(Pos.CENTER);
+            } else {
+                arrayInputField.setAlignment(Pos.TOP_LEFT);
+            }
+        }));
+
+        arrayInputField.prefHeightProperty().bind(arrayInputGrid.heightProperty().subtract(generateButton.heightProperty()).subtract(12));
+    }
+
+    private void initListView() {
+        listView.setPrefWidth(Double.MAX_VALUE);
     }
 
     /**
@@ -204,7 +254,7 @@ public class HeapSortController implements Initializable {
             visualizer.stopCurrentAnimation();
         }
         String input = arrayInputField.getText();
-        visualizer = new HeapSortAlgorithm(input, statusLabel, visualBox, resultBox, heapBox, treeBox, resultLabelContainer, heapLabelContainer,
+        visualizer = new HeapQueueAlgorithm(input, statusLabel, visualBox, heapBox, treeBox, heapLabelContainer,
                 treeLabelContainer, arrayInputField, generateButton, toStart, toEnd, forward, backward, playPause, speedSlider, heapType);
     }
 

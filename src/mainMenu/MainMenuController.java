@@ -3,6 +3,7 @@ package mainMenu;
 import binarySearch.BinarySearch;
 import bubbleSort.BubbleSort;
 import countingSort.CountingSort;
+import heapQueue.HeapQueue;
 import heapSort.HeapSort;
 import infoWindows.infoWindow;
 import insertionSort.InsertionSort;
@@ -177,6 +178,12 @@ public class MainMenuController implements Initializable {
                 button.setOnAction(e -> {
                     HeapSort heapSort = new HeapSort(window);
                     window.setMyScene(heapSort.getScene());
+                });
+                break;
+            case ("Heap Queue"):
+                button.setOnAction(e -> {
+                    HeapQueue heapQueue = new HeapQueue(window);
+                    window.setMyScene(heapQueue.getScene());
                 });
                 break;
             default:

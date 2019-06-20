@@ -1,0 +1,2 @@
+
+This is where the array, that you want to search on, goes. The input should be in the following format: Each index in the array is given as a whole number. Each index should be separated by a space, e.g. if the following input is given "1 4 5 6 9" it will generate an array with 1 in index 0, 4 in index 1, 5 in index 2 and so forth.

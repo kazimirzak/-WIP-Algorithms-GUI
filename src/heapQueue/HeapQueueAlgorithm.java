@@ -1,4 +1,4 @@
-package heapSort;
+package heapQueue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,11 +25,11 @@ import templates.VisualizeTree;
  *
  * @author Kenny Brink - kebri18@student.sdu.dk
  */
-public class HeapSortAlgorithm {
+public class HeapQueueAlgorithm {
 
     private Label statusLabel;
-    private VBox visualBox, resultBox, heapBox, treeBox;
-    private HBox resultLabelContainer, heapLabelContainer, treeLabelContainer;
+    private VBox visualBox, heapBox, treeBox;
+    private HBox heapLabelContainer, treeLabelContainer;
     private TextField arrayInputField;
     private Button generateButton, toStart, toEnd, forward, backward, playPause;
     private Slider speedSlider;
@@ -44,17 +44,15 @@ public class HeapSortAlgorithm {
     private boolean isMinHeap;
     private static boolean encounteredError = false;
 
-    public HeapSortAlgorithm(String input, Label statusLabel, VBox visualBox, VBox resultBox, VBox heapBox, VBox treeBox, HBox resultLabelContainer,
+    public HeapQueueAlgorithm(String input, Label statusLabel, VBox visualBox, VBox heapBox, VBox treeBox,
             HBox heapLabelContainer, HBox treeLabelContainer, TextField inputField, Button generateButton, Button toStart,
             Button toEnd, Button forward, Button backward, Button playPause, Slider speedSlider, ComboBox<String> heapType) {
         this.statusLabel = statusLabel;
         this.arrayInputField = inputField;
         this.generateButton = generateButton;
         this.visualBox = visualBox;
-        this.resultBox = resultBox;
         this.heapBox = heapBox;
         this.treeBox = treeBox;
-        this.resultLabelContainer = resultLabelContainer;
         this.heapLabelContainer = heapLabelContainer;
         this.treeLabelContainer = treeLabelContainer;
         this.toStart = toStart;
@@ -65,10 +63,8 @@ public class HeapSortAlgorithm {
         this.speedSlider = speedSlider;
         this.heapType = heapType;
         //To clear any animation already in the visualbox.
-        resultBox.getChildren().clear();
         heapBox.getChildren().clear();
         treeBox.getChildren().clear();
-        resultLabelContainer.getChildren().clear();
         heapLabelContainer.getChildren().clear();
         treeLabelContainer.getChildren().clear();
 
@@ -84,7 +80,7 @@ public class HeapSortAlgorithm {
         //If not errors were found in the input it gets ready for a input to search on.
         if (!encounteredError) {
             treeArray  = new TreeNode[array.length];
-            isMinHeap = heapType.getSelectionModel().getSelectedItem().equals("Min Heap");
+            isMinHeap = heapType.getSelectionModel().getSelectedItem().equals("MinHeap");
             result = new int[array.length];
             currentSize = array.length - 1;
             createLabels();
@@ -187,15 +183,13 @@ public class HeapSortAlgorithm {
         left.getStyleClass().add("label-visuals");
         Label right = new Label("Tree-View");
         right.getStyleClass().add("label-visuals");
-        resultLabelContainer.getChildren().add(input);
         heapLabelContainer.getChildren().add(left);
         treeLabelContainer.getChildren().add(right);
     }
 
     private void setBoxConstraints() {
-        resultBox.prefHeightProperty().bind(visualBox.heightProperty().multiply(0.33333));
-        heapBox.prefHeightProperty().bind(visualBox.heightProperty().multiply(0.33333));
-        treeBox.prefHeightProperty().bind(visualBox.heightProperty().multiply(0.33333));
+        heapBox.prefHeightProperty().bind(visualBox.heightProperty().multiply(0.4));
+        treeBox.prefHeightProperty().bind(visualBox.heightProperty().multiply(0.4));
     }
 
     /**
@@ -210,15 +204,12 @@ public class HeapSortAlgorithm {
         currentThread = new Thread(() -> visuals.play());
         buttonSetup(visuals);
         statusLabel.setText("Generating animations... Done!");
-        currentThread.start();
+        playPause.setOnAction(e -> currentThread.start());
     }
 
     private void showInitialArray() {
         List<Object> events = new ArrayList<>();
-        VisualizeArray vis = new VisualizeArray(resultBox);
-        vis.initArray(result);
-        vis.show();
-        events.add(vis);
+        VisualizeArray vis;
         vis = new VisualizeArray(heapBox);
         vis.initArray(array);
         vis.show();
@@ -232,9 +223,7 @@ public class HeapSortAlgorithm {
 
     private void showEndArray() {
         List<Object> events = new ArrayList<>();
-        VisualizeArray vis = new VisualizeArray(resultBox);
-        vis.initArray(result);
-        events.add(vis);
+        VisualizeArray vis;
         vis = new VisualizeArray(heapBox);
         vis.initArray(array);
         events.add(vis);
@@ -329,9 +318,7 @@ public class HeapSortAlgorithm {
         }
 
         List<Object> events = new ArrayList<>();
-        VisualizeArray vis = new VisualizeArray(resultBox);
-        vis.initArray(result);
-        events.add(vis);
+        VisualizeArray vis;
         vis = new VisualizeArray(heapBox);
         vis.initArray(array);
         events.add(vis);
@@ -344,10 +331,6 @@ public class HeapSortAlgorithm {
         for(int i = 0; i < array.length; i++) {
             result[i] = extract();
 
-            vis = new VisualizeArray(resultBox);
-            vis.initArray(result);
-            vis.setInFocus(i);
-            events.add(vis);
             vis = new VisualizeArray(heapBox);
             vis.initArray(array);
             events.add(vis);
@@ -361,10 +344,8 @@ public class HeapSortAlgorithm {
 
     private void minHeapify(int index) {
         List<Object> events = new ArrayList<>();
-        VisualizeArray vis = new VisualizeArray(resultBox);
+        VisualizeArray vis;
         VisualizeTree visualizeTree;
-        vis.initArray(result);
-        events.add(vis);
         vis = new VisualizeArray(heapBox);
         vis.initArray(array);
         vis.setInFocus(index);
@@ -383,9 +364,6 @@ public class HeapSortAlgorithm {
         if(left <= currentSize && array[left] < array[index]) {
             smallest = left;
 
-            vis = new VisualizeArray(resultBox);
-            vis.initArray(result);
-            events.add(vis);
             vis = new VisualizeArray(heapBox);
             vis.initArray(array);
             vis.setInFocus(index);
@@ -401,9 +379,6 @@ public class HeapSortAlgorithm {
         } else {
             smallest = index;
 
-            vis = new VisualizeArray(resultBox);
-            vis.initArray(result);
-            events.add(vis);
             vis = new VisualizeArray(heapBox);
             vis.initArray(array);
             vis.setInFocus(index);
@@ -418,9 +393,6 @@ public class HeapSortAlgorithm {
         if(right <= currentSize && array[right] < array[smallest]) {
             smallest = right;
 
-            vis = new VisualizeArray(resultBox);
-            vis.initArray(result);
-            events.add(vis);
             vis = new VisualizeArray(heapBox);
             vis.initArray(array);
             vis.setInFocus(index);
@@ -437,9 +409,6 @@ public class HeapSortAlgorithm {
         if(smallest != index) {
             swap(index, smallest);
 
-            vis = new VisualizeArray(resultBox);
-            vis.initArray(result);
-            events.add(vis);
             vis = new VisualizeArray(heapBox);
             vis.initArray(array);
             vis.setDone(smallest);
@@ -453,9 +422,6 @@ public class HeapSortAlgorithm {
 
             minHeapify(smallest);
         } else {
-            vis = new VisualizeArray(resultBox);
-            vis.initArray(result);
-            events.add(vis);
             vis = new VisualizeArray(heapBox);
             vis.initArray(array);
             vis.setDone(index);
@@ -471,10 +437,8 @@ public class HeapSortAlgorithm {
 
     private void maxHeapify(int index) {
         List<Object> events = new ArrayList<>();
-        VisualizeArray vis = new VisualizeArray(resultBox);
+        VisualizeArray vis;
         VisualizeTree visualizeTree;
-        vis.initArray(result);
-        events.add(vis);
         vis = new VisualizeArray(heapBox);
         vis.initArray(array);
         vis.setInFocus(index);
@@ -493,9 +457,6 @@ public class HeapSortAlgorithm {
         if(left <= currentSize && array[left] > array[index]) {
             highest = left;
 
-            vis = new VisualizeArray(resultBox);
-            vis.initArray(result);
-            events.add(vis);
             vis = new VisualizeArray(heapBox);
             vis.initArray(array);
             vis.setInFocus(index);
@@ -511,9 +472,6 @@ public class HeapSortAlgorithm {
         } else {
             highest = index;
 
-            vis = new VisualizeArray(resultBox);
-            vis.initArray(result);
-            events.add(vis);
             vis = new VisualizeArray(heapBox);
             vis.initArray(array);
             vis.setInFocus(index);
@@ -528,9 +486,6 @@ public class HeapSortAlgorithm {
         if(right <= currentSize && array[right] > array[highest]) {
             highest = right;
 
-            vis = new VisualizeArray(resultBox);
-            vis.initArray(result);
-            events.add(vis);
             vis = new VisualizeArray(heapBox);
             vis.initArray(array);
             vis.setInFocus(index);
@@ -547,9 +502,6 @@ public class HeapSortAlgorithm {
         if(highest != index) {
             swap(index, highest);
 
-            vis = new VisualizeArray(resultBox);
-            vis.initArray(result);
-            events.add(vis);
             vis = new VisualizeArray(heapBox);
             vis.initArray(array);
             vis.setDone(highest);
@@ -563,9 +515,6 @@ public class HeapSortAlgorithm {
 
             maxHeapify(highest);
         } else {
-            vis = new VisualizeArray(resultBox);
-            vis.initArray(result);
-            events.add(vis);
             vis = new VisualizeArray(heapBox);
             vis.initArray(array);
             vis.setDone(index);
@@ -581,10 +530,8 @@ public class HeapSortAlgorithm {
 
     private int extract() {
         List<Object> events = new ArrayList<>();
-        VisualizeArray vis = new VisualizeArray(resultBox);
+        VisualizeArray vis;
         VisualizeTree visualizeTree;
-        vis.initArray(result);
-        events.add(vis);
         vis = new VisualizeArray(heapBox);
         vis.initArray(array);
         vis.setInFocus(0);
@@ -603,9 +550,6 @@ public class HeapSortAlgorithm {
         array[currentSize] = 0;
         currentSize--;
 
-        vis = new VisualizeArray(resultBox);
-        vis.initArray(result);
-        events.add(vis);
         vis = new VisualizeArray(heapBox);
         vis.initArray(array);
         vis.setInFocus(0);

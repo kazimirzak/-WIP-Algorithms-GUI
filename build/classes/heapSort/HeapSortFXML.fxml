@@ -73,15 +73,11 @@
                         <HBox fx:id="heapLabelContainer" />
                         <VBox fx:id="heapBox" alignment="BOTTOM_CENTER" VBox.vgrow="ALWAYS" />
                         <HBox fx:id="treeLabelContainer" VBox.vgrow="ALWAYS" />
-                        <ScrollPane VBox.vgrow="ALWAYS">
-                           <content>
-                              <VBox fx:id="treeBox" alignment="TOP_CENTER" fillWidth="false">
-                                 <padding>
-                                    <Insets bottom="5.0" />
-                                 </padding>
-                              </VBox>
-                           </content>
-                        </ScrollPane>
+                        <VBox fx:id="treeBox" alignment="TOP_CENTER" fillWidth="false">
+                           <padding>
+                              <Insets bottom="5.0" />
+                           </padding>
+                        </VBox>
                      </children></VBox>
                </content>
             </ScrollPane>

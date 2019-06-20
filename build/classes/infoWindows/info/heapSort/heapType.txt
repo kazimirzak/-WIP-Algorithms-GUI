@@ -1,0 +1,2 @@
+
+This will switch the type of the heap. When the window opens this is set to max heap as standard.
